@@ -22,21 +22,40 @@ class Contact extends Model
         'nickname',
     ];
 
+    /**
+     * Get the user who owns the Contact
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * Get the emails associated with the Contact
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function emails(): HasMany
     {
         return $this->hasMany(Email::class);
     }
 
+    /**
+     * Get the phoneNumbers associated with the Contact
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function phoneNumbers(): HasMany
     {
         return $this->hasMany(PhoneNumber::class);
     }
 
+    /**
+     * Get the addresses associated with the Contact
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function addresses(): HasMany
     {
         return $this->hasMany(Address::class);
