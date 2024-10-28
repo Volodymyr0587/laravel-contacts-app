@@ -15,8 +15,8 @@ return new class extends Migration
         Schema::create('birthdays', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Contact::class)->constrained()->cascadeOnDelete();
-            $table->unsignedTinyInteger('day');
-            $table->unsignedTinyInteger('month');
+            $table->unsignedTinyInteger('day')->nullable();
+            $table->unsignedTinyInteger('month')->nullable();
             $table->unsignedSmallInteger('year')->nullable();
             $table->timestamps();
         });

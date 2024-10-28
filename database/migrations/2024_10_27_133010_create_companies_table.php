@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Address;
 use App\Models\Contact;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -15,8 +16,9 @@ return new class extends Migration
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Contact::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Address::class)->nullable()->constrained()->nullOnDelete();
             $table->string('name');
-            $table->string('address')->nullable();
+            // $table->string('address')->nullable();
             $table->timestamps();
         });
     }

@@ -15,10 +15,10 @@ return new class extends Migration
         Schema::create('contacts', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
-            $table->string('first_name');
-            $table->string('middle_name')->nullable();
-            $table->string('last_name')->nullable();
-            $table->string('nickname')->nullable();
+            $table->string('first_name', 255);
+            $table->string('middle_name', 255)->nullable();
+            $table->string('last_name', 2255)->nullable();
+            $table->string('nickname', 255)->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

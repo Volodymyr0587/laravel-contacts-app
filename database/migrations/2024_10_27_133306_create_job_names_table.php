@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Company::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Contact::class)->constrained()->cascadeOnDelete();
-            $table->string('title');
+            $table->string('title', 255);
             $table->timestamps();
         });
     }

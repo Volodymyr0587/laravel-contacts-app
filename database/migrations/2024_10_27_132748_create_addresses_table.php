@@ -16,12 +16,12 @@ return new class extends Migration
         Schema::create('addresses', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Contact::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(Country::class)->constrained()->cascadeOnDelete();
-            $table->string('city');
-            $table->string('street')->nullable();
-            $table->string('building_number')->nullable();
-            $table->string('apartment_number')->nullable();
-            $table->string('label');
+            $table->foreignIdFor(Country::class)->nullable()->constrained()->nullOnDelete();
+            $table->string('city', 255)->nullable();
+            $table->string('street', 255)->nullable();
+            $table->string('building_number', 50)->nullable();
+            $table->string('apartment_number', 50)->nullable();
+            $table->enum('label', ['home', 'work', 'other'])->nullable();
             $table->timestamps();
         });
     }

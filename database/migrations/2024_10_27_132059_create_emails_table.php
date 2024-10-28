@@ -15,8 +15,8 @@ return new class extends Migration
         Schema::create('emails', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Contact::class)->constrained()->cascadeOnDelete();
-            $table->string('email');
-            $table->string('label');
+            $table->string('email', 255)->nullable();
+            $table->enum('label', ['home', 'work', 'other'])->nullable();
             $table->timestamps();
         });
     }

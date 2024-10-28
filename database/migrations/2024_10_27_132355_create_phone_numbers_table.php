@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('phone_numbers', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Contact::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(Country::class, 'code')->constrained()->cascadeOnDelete();
-            $table->string('phone_number');
-            $table->string('label');
+            $table->string('dial_code', 10)->nullable();
+            $table->string('phone_number', 20)->nullable();
+            $table->enum('label', ['home', 'work', 'other'])->nullable();
             $table->timestamps();
         });
     }
