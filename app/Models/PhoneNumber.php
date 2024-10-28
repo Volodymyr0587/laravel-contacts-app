@@ -10,7 +10,7 @@ class PhoneNumber extends Model
 {
     protected $fillable = [
         'contact_id',
-        'code',
+        'dial_code',
         'phone_number',
         'label',
     ];
@@ -27,15 +27,5 @@ class PhoneNumber extends Model
     public function contact(): BelongsTo
     {
         return $this->belongsTo(Contact::class);
-    }
-
-    /**
-     * Get the country that owns the PhoneNumber
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function country(): BelongsTo
-    {
-        return $this->belongsTo(Country::class, 'code');
     }
 }

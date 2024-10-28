@@ -14,16 +14,6 @@ class Country extends Model
     ];
 
     /**
-     * Get all of the phoneNumbers for the Country
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function phoneNumbers(): HasMany
-    {
-        return $this->hasMany(PhoneNumber::class, 'code');
-    }
-
-    /**
      * Get all of the addresses for the Country
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

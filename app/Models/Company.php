@@ -10,8 +10,8 @@ class Company extends Model
 {
     protected $fillable = [
         'contact_id',
+        'address_id',
         'name',
-        'address',
     ];
 
     /**
@@ -22,6 +22,16 @@ class Company extends Model
     public function contact(): BelongsTo
     {
         return $this->belongsTo(Contact::class);
+    }
+
+    /**
+     * Get the address that owns the Company
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function address(): BelongsTo
+    {
+        return $this->belongsTo(Address::class);
     }
 
     /**
