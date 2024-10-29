@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Enums\LabelType;
+use App\Rules\PhoneNumber as Phone;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -91,7 +92,7 @@ class StoreContactRequest extends FormRequest
             // Phone numbers
             'phone_numbers' => 'nullable|array',
             'phone_numbers.*.dial_code' => 'nullable|exists:countries,dial_code',
-            'phone_numbers.*.phone_number' => 'nullable|string|max:20',
+            'phone_numbers.*.phone_number' => ['nullable', 'string', 'max:50', new Phone],
             'phone_numbers.*.label' => ['nullable', Rule::in(array_column(LabelType::cases(), 'value'))],
             // Addresses
             'addresses' => 'nullable|array',
