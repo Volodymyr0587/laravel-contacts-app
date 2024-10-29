@@ -88,9 +88,9 @@
                         <div id="phone-section">
                             <div>
                                 <label>Country Code</label>
-                                <select name="phone_numbers[0][code]">
+                                <select name="phone_numbers[0][dial_code]">
                                     @foreach ($dialCodes as $id => $dialCode)
-                                        <option value="{{ $dialCode }}" {{ old('phone_numbers.0.code') == $dialCode ? 'selected' : '' }}>
+                                        <option value="{{ $dialCode }}" {{ old('phone_numbers.0.dial_code') == $dialCode ? 'selected' : '' }}>
                                             {{ $dialCode }}
                                         </option>
                                     @endforeach
@@ -120,8 +120,15 @@
                         <h3>Addresses</h3>
                         <div id="address-section">
                             <div>
-                                <label>Country ID</label>
-                                <input type="number" name="addresses[0][country_id]" value="{{ old('addresses.0.country_id') }}">
+                                <label>Country</label>
+                                <select name="addresses[0][country_id]">
+                                    <option value="">Choose a country</option>
+                                    @foreach ($countries as $country)
+                                        <option value="{{ $country->id }}" {{ old('addresses.0.country_id') == $country->id ? 'selected' : '' }}>
+                                            {{ $country->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
                                 @error('addresses.0.country_id')
                                     <p class="text-red-500">{{ $message }}</p>
                                 @enderror
