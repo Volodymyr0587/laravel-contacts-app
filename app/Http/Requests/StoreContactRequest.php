@@ -104,7 +104,6 @@ class StoreContactRequest extends FormRequest
             // Companies
             'companies' => 'nullable|array',
             'companies.*.name' => 'nullable|string|max:255',
-            'companies.*.address_id' => 'nullable|exists:addresses,id',
             // Job titles within companies
             'companies.*.job_names' => 'nullable|array',
             'companies.*.job_names.*.title' => 'nullable|string|max:255',

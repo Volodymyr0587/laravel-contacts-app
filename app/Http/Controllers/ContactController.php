@@ -6,7 +6,6 @@ use App\Enums\LabelType;
 use App\Models\Contact;
 use App\Models\Country;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StoreContactRequest;
 
 class ContactController extends Controller
@@ -16,7 +15,7 @@ class ContactController extends Controller
      */
     public function index()
     {
-        //
+        return auth()->user()->contacts()->get();
     }
 
     /**
@@ -234,7 +233,6 @@ class ContactController extends Controller
                     // Створення компанії
                     $company = $contact->companies()->create([
                         'name' => $companyData['name'],
-                        'address_id' => $companyData['address_id'] ?? null, // Зберігаємо ID адреси
                     ]);
 
                     // Логування створеної компанії

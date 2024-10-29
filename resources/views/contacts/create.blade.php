@@ -258,8 +258,6 @@
                             <div>
                                 <label>Company Name</label>
                                 <input type="text" name="companies[0][name]" value="{{ old('companies.0.name') }}">
-                                <label>Address</label>
-                                <input type="text" name="companies[0][address_id]" value="{{ old('companies.0.address') }}">
 
                                 <h4>Job Titles</h4>
                                 <div id="job-titles-section-0">
