@@ -18,25 +18,25 @@
                         <label>First Name</label>
                         <input type="text" name="first_name" value="{{ old('first_name') }}">
                         @error('first_name')
-                            <p class="text-red-500">{{ $message }}</p>
+                        <p class="text-red-500">{{ $message }}</p>
                         @enderror
 
                         <label>Middle Name</label>
                         <input type="text" name="middle_name" value="{{ old('middle_name') }}">
                         @error('middle_name')
-                            <p class="text-red-500">{{ $message }}</p>
+                        <p class="text-red-500">{{ $message }}</p>
                         @enderror
 
                         <label>Last Name</label>
                         <input type="text" name="last_name" value="{{ old('last_name') }}">
                         @error('last_name')
-                            <p class="text-red-500">{{ $message }}</p>
+                        <p class="text-red-500">{{ $message }}</p>
                         @enderror
 
                         <label>Nickname</label>
                         <input type="text" name="nickname" value="{{ old('nickname') }}">
                         @error('nickname')
-                            <p class="text-red-500">{{ $message }}</p>
+                        <p class="text-red-500">{{ $message }}</p>
                         @enderror
 
                         <!-- Birthday -->
@@ -44,19 +44,20 @@
                         <label>Day</label>
                         <input type="number" name="birthday[day]" value="{{ old('birthday.day') }}" min="1" max="31">
                         @error('birthday.day')
-                            <p class="text-red-500">{{ $message }}</p>
+                        <p class="text-red-500">{{ $message }}</p>
                         @enderror
 
                         <label>Month</label>
-                        <input type="number" name="birthday[month]" value="{{ old('birthday.month') }}" min="1" max="12">
+                        <input type="number" name="birthday[month]" value="{{ old('birthday.month') }}" min="1"
+                            max="12">
                         @error('birthday.month')
-                            <p class="text-red-500">{{ $message }}</p>
+                        <p class="text-red-500">{{ $message }}</p>
                         @enderror
 
                         <label>Year</label>
                         <input type="number" name="birthday[year]" value="{{ old('birthday.year') }}" min="1900">
                         @error('birthday.year')
-                            <p class="text-red-500">{{ $message }}</p>
+                        <p class="text-red-500">{{ $message }}</p>
                         @enderror
 
                         <!-- Emails -->
@@ -66,18 +67,20 @@
                                 <label>Email</label>
                                 <input type="email" name="emails[0][email]" value="{{ old('emails.0.email') }}">
                                 @error('emails.0.email')
-                                    <p class="text-red-500">{{ $message }}</p>
+                                <p class="text-red-500">{{ $message }}</p>
                                 @enderror
 
                                 <label>Label</label>
                                 <select name="emails[0][label]" value="{{ old('emails.0.label') }}">
                                     <option value="">Select a type</option>
-                                    <option value="work">Work</option>
-                                    <option value="home">Home</option>
-                                    <option value="other">Other</option>
+                                    @foreach ($labelTypes as $labelType)
+                                        <option value="{{ $labelType->value }}" {{ old('emails.0.label') == $labelType->value ? 'selected' : '' }}>
+                                            {{ ucfirst($labelType->value) }}
+                                        </option>
+                                    @endforeach
                                 </select>
                                 @error('emails.0.label')
-                                    <p class="text-red-500">{{ $message }}</p>
+                                <p class="text-red-500">{{ $message }}</p>
                                 @enderror
                             </div>
                         </div>
@@ -90,27 +93,31 @@
                                 <label>Country Code</label>
                                 <select name="phone_numbers[0][dial_code]">
                                     @foreach ($dialCodes as $id => $dialCode)
-                                        <option value="{{ $dialCode }}" {{ old('phone_numbers.0.dial_code') == $dialCode ? 'selected' : '' }}>
-                                            {{ $dialCode }}
-                                        </option>
+                                    <option value="{{ $dialCode }}" {{ old('phone_numbers.0.dial_code')==$dialCode
+                                        ? 'selected' : '' }}>
+                                        {{ $dialCode }}
+                                    </option>
                                     @endforeach
                                 </select>
 
                                 <label>Phone Number</label>
-                                <input type="text" name="phone_numbers[0][phone_number]" value="{{ old('phone_numbers.0.phone_number') }}">
+                                <input type="text" name="phone_numbers[0][phone_number]"
+                                    value="{{ old('phone_numbers.0.phone_number') }}">
                                 @error('phone_numbers.0.phone_number')
-                                    <p class="text-red-500">{{ $message }}</p>
+                                <p class="text-red-500">{{ $message }}</p>
                                 @enderror
 
                                 <label>Label</label>
                                 <select name="phone_numbers[0][label]">
                                     <option value="">Select a type</option>
-                                    <option value="work">Work</option>
-                                    <option value="home">Home</option>
-                                    <option value="other">Other</option>
+                                    @foreach ($labelTypes as $labelType)
+                                        <option value="{{ $labelType->value }}" {{ old('phone_numbers.0.label') == $labelType->value ? 'selected' : '' }}>
+                                            {{ ucfirst($labelType->value) }}
+                                        </option>
+                                    @endforeach
                                 </select>
                                 @error('phone_numbers.0.label')
-                                    <p class="text-red-500">{{ $message }}</p>
+                                <p class="text-red-500">{{ $message }}</p>
                                 @enderror
                             </div>
                         </div>
@@ -124,162 +131,79 @@
                                 <select name="addresses[0][country_id]">
                                     <option value="">Choose a country</option>
                                     @foreach ($countries as $country)
-                                        <option value="{{ $country->id }}" {{ old('addresses.0.country_id') == $country->id ? 'selected' : '' }}>
-                                            {{ $country->name }}
-                                        </option>
+                                    <option value="{{ $country->id }}" {{ old('addresses.0.country_id')==$country->id ?
+                                        'selected' : '' }}>
+                                        {{ $country->name }}
+                                    </option>
                                     @endforeach
                                 </select>
                                 @error('addresses.0.country_id')
-                                    <p class="text-red-500">{{ $message }}</p>
+                                <p class="text-red-500">{{ $message }}</p>
                                 @enderror
 
                                 <label>City</label>
                                 <input type="text" name="addresses[0][city]" value="{{ old('addresses.0.city') }}">
                                 @error('addresses.0.city')
-                                    <p class="text-red-500">{{ $message }}</p>
+                                <p class="text-red-500">{{ $message }}</p>
                                 @enderror
 
                                 <label>Street</label>
                                 <input type="text" name="addresses[0][street]" value="{{ old('addresses.0.street') }}">
                                 @error('addresses.0.street')
-                                    <p class="text-red-500">{{ $message }}</p>
+                                <p class="text-red-500">{{ $message }}</p>
                                 @enderror
 
                                 <label>Building Number</label>
-                                <input type="text" name="addresses[0][building_number]" value="{{ old('addresses.0.building_number') }}">
+                                <input type="text" name="addresses[0][building_number]"
+                                    value="{{ old('addresses.0.building_number') }}">
                                 @error('addresses.0.building_number')
-                                    <p class="text-red-500">{{ $message }}</p>
+                                <p class="text-red-500">{{ $message }}</p>
                                 @enderror
 
                                 <label>Apartment Number</label>
-                                <input type="text" name="addresses[0][apartment_number]" value="{{ old('addresses.0.apartment_number') }}">
+                                <input type="text" name="addresses[0][apartment_number]"
+                                    value="{{ old('addresses.0.apartment_number') }}">
                                 @error('addresses.0.apartment_number')
-                                    <p class="text-red-500">{{ $message }}</p>
+                                <p class="text-red-500">{{ $message }}</p>
                                 @enderror
 
                                 <label>Label</label>
                                 <select name="addresses[0][label]" value="{{ old('addresses.0.label') }}">
                                     <option value="">Select a type</option>
-                                    <option value="work">Work</option>
-                                    <option value="home">Home</option>
-                                    <option value="other">Other</option>
+                                    @foreach ($labelTypes as $labelType)
+                                        <option value="{{ $labelType->value }}" {{ old('addresses.0.label') == $labelType->value ? 'selected' : '' }}>
+                                            {{ ucfirst($labelType->value) }}
+                                        </option>
+                                    @endforeach
                                 </select>
                                 @error('addresses.0.label')
-                                    <p class="text-red-500">{{ $message }}</p>
+                                <p class="text-red-500">{{ $message }}</p>
                                 @enderror
                             </div>
                         </div>
                         <button type="button" onclick="addAddress()">Add another address</button>
 
-                        <!-- Companies and Job Titles -->
-                        {{-- <h3>Companies</h3>
-                        <div id="company-section">
-                            <div>
-                                <label>Company Name</label>
-                                <input type="text" name="companies[0][name]" value="{{ old('companies.0.name') }}">
-                                @error('companies.0.name')
-                                    <p class="text-red-500">{{ $message }}</p>
-                                @enderror
-
-                                <label>Address</label>
-                                <input type="text" name="companies[0][address]" value="{{ old('companies.0.address') }}">
-                                @error('companies.0.address')
-                                    <p class="text-red-500">{{ $message }}</p>
-                                @enderror
-
-                                <h4>Job Titles</h4>
-                                <div>
-                                    <label>Job Title</label>
-                                    <input type="text" name="job_names[0][title]" value="{{ old('job_names.0.title') }}">
-                                    @error('job_names.0.title')
-                                        <p class="text-red-500">{{ $message }}</p>
-                                    @enderror
-                                    <input type="hidden" name="job_names[0][company_id]" value="0"> <!-- Placeholder для ID компанії -->
-                                </div>
-                            </div>
-                        </div>
-                        <button type="button" onclick="addCompany()">Add another company</button> --}}
-
-                        {{-- <h3>Companies</h3>
-                        <div id="company-section">
-                            <div>
-                                <label>Company Name</label>
-                                <input type="text" name="companies[0][name]" value="{{ old('companies.0.name') }}">
-                                @error('companies.0.name')
-                                    <p class="text-red-500">{{ $message }}</p>
-                                @enderror
-
-                                <label>Address</label>
-                                <input type="text" name="companies[0][address]" value="{{ old('companies.0.address') }}">
-                                @error('companies.0.address')
-                                    <p class="text-red-500">{{ $message }}</p>
-                                @enderror
-
-                                <h4>Job Titles</h4>
-                                <div id="job-titles-section-0">
-                                    <div>
-                                        <label>Job Title</label>
-                                        <input type="text" name="job_names[0][title]" value="{{ old('job_names.0.title') }}">
-                                        @error('job_names.0.title')
-                                            <p class="text-red-500">{{ $message }}</p>
-                                        @enderror
-                                        <input type="hidden" name="job_names[0][company_id]" value="0">
-                                    </div>
-                                </div>
-                                <button type="button" onclick="addJobTitle(0)">Add another job title</button>
-                            </div>
-                        </div>
-                        <button type="button" onclick="addCompany()">Add another company</button> --}}
-
+                        <!-- Companies -->
                         <h3>Companies</h3>
-                        {{-- <div id="company-section">
+                        <div id="company-section">
                             <div>
                                 <label>Company Name</label>
                                 <input type="text" name="companies[0][name]" value="{{ old('companies.0.name') }}">
                                 @error('companies.0.name')
                                     <p class="text-red-500">{{ $message }}</p>
                                 @enderror
-
-                                <label>Address</label>
-                                <input type="text" name="companies[0][address]" value="{{ old('companies.0.address') }}">
-                                @error('companies.0.address')
-                                    <p class="text-red-500">{{ $message }}</p>
-                                @enderror
-
-                                <h4>Job Titles</h4>
-                                <div id="job-titles-section-0">
-                                    <div>
-                                        <label>Job Title</label>
-                                        <input type="text" name="job_names[0][title]" value="{{ old('job_names.0.title') }}">
-                                        @error('job_names.0.title')
-                                            <p class="text-red-500">{{ $message }}</p>
-                                        @enderror
-                                        <input type="hidden" name="job_names[0][company_id]" value="0">
-                                    </div>
-                                </div>
-                                <button type="button" onclick="addJobTitle(0)">Add another job title</button>
-                            </div>
-                        </div>
-                        <button type="button" onclick="addCompany()">Add another company</button> --}}
-                        <div id="company-section">
-                            <div>
-                                <label>Company Name</label>
-                                <input type="text" name="companies[0][name]" value="{{ old('companies.0.name') }}">
-
-                                <h4>Job Titles</h4>
                                 <div id="job-titles-section-0">
                                     <div>
                                         <label>Job Title</label>
                                         <input type="text" name="companies[0][job_names][0][title]" value="{{ old('companies.0.job_names.0.title') }}">
-                                        {{-- <input type="hidden" name="companies[0][job_names][0][company_id]" value="0"> --}}
+                                        @error('companies.0.job_names.0.title')
+                                            <p class="text-red-500">{{ $message }}</p>
+                                        @enderror
                                     </div>
                                 </div>
-                                <button type="button" onclick="addJobTitle(0)">Add another job title</button>
                             </div>
                         </div>
                         <button type="button" onclick="addCompany()">Add another company</button>
-
-
                         <!-- Submit Button -->
                         <button type="submit">Create Contact</button>
                     </form>
@@ -293,27 +217,28 @@
         function addEmail() {
             const emailSection = document.getElementById('email-section');
             const index = emailSection.children.length;
+            const labelOptions = `
+                <option value="">Select a type</option>
+                @foreach ($labelTypes as $labelType)
+                    <option value="{{ $labelType->value }}">{{ ucfirst($labelType->value) }}</option>
+                @endforeach
+            `;
+
             emailSection.insertAdjacentHTML('beforeend', `
                 <div>
                     <label>Email</label>
-                    <input type="email" name="emails[${index}][email]">
-                    <label>Label</label>
-                    <input type="text" name="emails[${index}][label]">
-                </div>
-            `);
-        }
+                    <input type="email" name="emails[${index}][email]" value="{{ old('emails.${index}.email') }}">
+                    @error('emails.${index}.email')
+                        <p class="text-red-500">{{ $message }}</p>
+                    @enderror
 
-        function addPhoneNumber() {
-            const phoneSection = document.getElementById('phone-section');
-            const index = phoneSection.children.length;
-            phoneSection.insertAdjacentHTML('beforeend', `
-                <div>
-                    <label>Country Code</label>
-                    <input type="text" name="phone_numbers[${index}][country_code]">
-                    <label>Phone Number</label>
-                    <input type="text" name="phone_numbers[${index}][phone_number]">
                     <label>Label</label>
-                    <input type="text" name="phone_numbers[${index}][label]">
+                    <select name="emails[${index}][label]" value="{{ old('emails.${index}.label') }}">
+                        ${labelOptions}
+                    </select>
+                    @error('emails.${index}.label')
+                        <p class="text-red-500">{{ $message }}</p>
+                    @enderror
                 </div>
             `);
         }
@@ -321,80 +246,141 @@
         function addAddress() {
             const addressSection = document.getElementById('address-section');
             const index = addressSection.children.length;
+            // Render label options using the enum
+            const labelOptions = `
+                <option value="">Select a type</option>
+                @foreach ($labelTypes as $labelType)
+                    <option value="{{ $labelType->value }}">{{ ucfirst($labelType->value) }}</option>
+                @endforeach
+            `;
+            // Render country options using the provided list of countries
+            const countryOptions = `
+                <option value="">Choose a country</option>
+                @foreach ($countries as $country)
+                    <option value="{{ $country->id }}">{{ $country->name }}</option>
+                @endforeach
+            `;
+            // Insert new address fields
             addressSection.insertAdjacentHTML('beforeend', `
                 <div>
-                    <label>Country ID</label>
-                    <input type="number" name="addresses[${index}][country_id]">
+                    <label>Country</label>
+                    <select name="addresses[${index}][country_id]">
+                        ${countryOptions}
+                    </select>
+                    @error('addresses.${index}.country_id')
+                        <p class="text-red-500">{{ $message }}</p>
+                    @enderror
+
                     <label>City</label>
-                    <input type="text" name="addresses[${index}][city]">
+                    <input type="text" name="addresses[${index}][city]" value="{{ old('addresses.${index}.city') }}">
+                    @error('addresses.${index}.city')
+                        <p class="text-red-500">{{ $message }}</p>
+                    @enderror
+
                     <label>Street</label>
-                    <input type="text" name="addresses[${index}][street]">
+                    <input type="text" name="addresses[${index}][street]" value="{{ old('addresses.${index}.street') }}">
+                    @error('addresses.${index}.street')
+                        <p class="text-red-500">{{ $message }}</p>
+                    @enderror
+
                     <label>Building Number</label>
-                    <input type="text" name="addresses[${index}][building_number]">
+                    <input type="text" name="addresses[${index}][building_number]" value="{{ old('addresses.${index}.building_number') }}">
+                    @error('addresses.${index}.building_number')
+                        <p class="text-red-500">{{ $message }}</p>
+                    @enderror
+
                     <label>Apartment Number</label>
-                    <input type="text" name="addresses[${index}][apartment_number]">
+                    <input type="text" name="addresses[${index}][apartment_number]" value="{{ old('addresses.${index}.apartment_number') }}">
+                    @error('addresses.${index}.apartment_number')
+                        <p class="text-red-500">{{ $message }}</p>
+                    @enderror
+
                     <label>Label</label>
-                    <input type="text" name="addresses[${index}][label]">
+                    <select name="addresses[${index}][label]">
+                        ${labelOptions}
+                    </select>
+                    @error('addresses.${index}.label')
+                        <p class="text-red-500">{{ $message }}</p>
+                    @enderror
                 </div>
             `);
         }
 
-        // function addCompany() {
-        //     const companySection = document.getElementById('company-section');
-        //     const index = companySection.children.length;
-        //     companySection.insertAdjacentHTML('beforeend', `
-        //         <div>
-        //             <label>Company Name</label>
-        //             <input type="text" name="companies[${index}][name]">
-        //             <label>Address</label>
-        //             <input type="text" name="companies[${index}][address]">
+        function addPhoneNumber() {
+            const phoneSection = document.getElementById('phone-section');
+            const index = phoneSection.children.length;
 
-        //             <h4>Job Titles</h4>
-        //             <div>
-        //                 <label>Job Title</label>
-        //                 <input type="text" name="job_names[${index}][title]">
-        //                 <input type="hidden" name="job_names[${index}][company_id]" value="${index}">
-        //             </div>
-        //         </div>
-        //     `);
-        // }
+            phoneSection.insertAdjacentHTML('beforeend', `
+                <div>
+                    <label>Country Code</label>
+                    <select name="phone_numbers[${index}][dial_code]">
+                        @foreach ($dialCodes as $dialCode)
+                            <option value="{{ $dialCode }}">{{ $dialCode }}</option>
+                        @endforeach
+                    </select>
+
+                    <label>Phone Number</label>
+                    <input type="text" name="phone_numbers[${index}][phone_number]" value="{{ old('phone_numbers.${index}.phone_number') }}">
+                    @error('phone_numbers.${index}.phone_number')
+                        <p class="text-red-500">{{ $message }}</p>
+                    @enderror
+
+                    <label>Label</label>
+                    <select name="phone_numbers[${index}][label]">
+                        <option value="">Select a type</option>
+                        <option value="work">Work</option>
+                        <option value="home">Home</option>
+                        <option value="other">Other</option>
+                    </select>
+                    @error('phone_numbers.${index}.label')
+                        <p class="text-red-500">{{ $message }}</p>
+                    @enderror
+                </div>
+            `);
+        }
+
+        let companyIndex = 1;
 
         function addCompany() {
             const companySection = document.getElementById('company-section');
-            const index = companySection.children.length;
-            companySection.insertAdjacentHTML('beforeend', `
-                <div>
-                    <label>Company Name</label>
-                    <input type="text" name="companies[${index}][name]">
-                    <label>Address</label>
-                    <input type="text" name="companies[${index}][address]">
+            // const companyIndex = companySection.children.length;
+            const newCompany = document.createElement('div');
+            newCompany.classList.add('company');
+            newCompany.dataset.index = companyIndex;
 
-                    <h4>Job Titles</h4>
-                    <div id="job-titles-section-${index}">
-                        <div>
-                            <label>Job Title</label>
-                            <input type="text" name="job_names[${index}][title]">
-                            <input type="hidden" name="job_names[${index}][company_id]" value="${index}">
-                        </div>
+            newCompany.innerHTML = `
+                <label>Company Name</label>
+                <input type="text" name="companies[${companyIndex}][name]" value="">
+                <div id="job-titles-section-${companyIndex}" class="job-titles-section">
+                    <div>
+                        <label>Job Title</label>
+                        <input type="text" name="companies[${companyIndex}][job_names][0][title]" value="">
+                        @error('companies.0.job_names.0.title')
+                           <p class="text-red-500">{{ $message }}</p>
+                        @enderror
                     </div>
-                    <button type="button" onclick="addJobTitle(${index})">Add another job title</button>
                 </div>
-            `);
+            `;
+            companySection.appendChild(newCompany);
+            companyIndex++;
         }
 
         function addJobTitle(companyIndex) {
-            const jobTitlesSection = document.getElementById(`job-titles-section-${companyIndex}`);
-            const index = jobTitlesSection.children.length;
-            jobTitlesSection.insertAdjacentHTML('beforeend', `
+            const jobTitlesSection = document.getElementById(`job-titles-section-${companyIdx}`);
+            const jobTitleCount = jobTitlesSection.querySelectorAll('div').length;
+
+            // New job title HTML
+            const newJobTitle = document.createElement('div');
+            newJobTitle.innerHTML = `
                 <div>
                     <label>Job Title</label>
-                    <input type="text" name="companies[${companyIndex}][job_names][${index}][title]">
-                    <input type="hidden" name="companies[${companyIndex}][job_names][${index}][company_id]" value="${companyIndex}">
+                    <input type="text" name="companies[${companyIndex}][job_names][${jobTitleIndex}][title]" value="{{ old('companies.${companyIndex}.job_names.${jobTitleIndex}.title') }}">
+                    @error('companies.${companyIndex}.job_names.${jobTitleIndex}.title')
+                        <p class="text-red-500">{{ $message }}</p>
+                    @enderror
                 </div>
-            `);
+            `;
+            jobTitlesSection.appendChild(newJobTitle);
         }
-
-
     </script>
-
 </x-app-layout>
