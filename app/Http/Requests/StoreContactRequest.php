@@ -104,10 +104,10 @@ class StoreContactRequest extends FormRequest
             'addresses.*.label' => ['nullable', Rule::in(array_column(LabelType::cases(), 'value'))],
             // Companies
             'companies' => 'nullable|array',
-            'companies.*.name' => 'nullable|string|max:255',
+            'companies.*.name' => 'nullable|string|max:50',
             // Job titles within companies
             'companies.*.job_names' => 'nullable|array',
-            'companies.*.job_names.*.title' => 'nullable|string|max:255',
+            'companies.*.job_names.*.title' => 'nullable|string|max:50',
         ];
     }
 }
