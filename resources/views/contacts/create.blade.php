@@ -236,7 +236,7 @@
 
                                 <h3 class="mt-8 text-base/7 font-semibold text-gray-900">Addresses</h3>
                                 <div class="mt-4 grid grid-cols-3 gap-x-6 gap-y-8 sm:grid-cols-6" id="address-section">
-                                    <div class="sm:col-span-1">
+                                    <div class="sm:col-span-2">
                                         <label for="addresses[0][country_id]"
                                             class="block text-sm/6 font-medium text-gray-900">Country</label>
                                         <div class="mt-2">
@@ -267,7 +267,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-span-3">
+                                    <div class="col-span-2">
                                         <label for="addresses[0][street]"
                                             class="block text-sm/6 font-medium text-gray-900">Street name</label>
                                         <div class="mt-2">
@@ -483,7 +483,7 @@
             // Insert new address fields
             addressSection.insertAdjacentHTML('afterend', `
                 <div class="mt-4 grid grid-cols-3 gap-x-6 gap-y-8 sm:grid-cols-6" id="address-section">
-                <div class="sm:col-span-1">
+                <div class="sm:col-span-2">
                     <label for="addresses[${index}][country_id]"
                         class="block text-sm/6 font-medium text-gray-900">Country</label>
                     <div class="mt-2">
@@ -514,7 +514,7 @@
                     @enderror
                 </div>
 
-                <div class="col-span-3">
+                <div class="col-span-2">
                     <label for="addresses[${index}][street]"
                         class="block text-sm/6 font-medium text-gray-900">Street name</label>
                     <div class="mt-2">
