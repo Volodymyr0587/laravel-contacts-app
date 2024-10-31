@@ -27,10 +27,13 @@
                                         <div class="mt-2">
                                             <div
                                                 class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                                                <input type="text" name="first_name" id="first_name" autocomplete="first_name"
+                                                <input type="text" name="first_name" id="first_name" value="{{ old('first_name') }}" autocomplete="first_name"
                                                     class="block flex-1 border-0 bg-transparent py-1.5 pl-4 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm/6"
                                                     placeholder="First name">
                                             </div>
+                                            @error('first_name')
+                                            <p class="text-red-500">{{ $message }}</p>
+                                            @enderror
                                         </div>
                                     </div>
 
@@ -40,10 +43,13 @@
                                         <div class="mt-2">
                                             <div
                                                 class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                                                <input type="text" name="middle_name" id="middle_name" autocomplete="middle_name"
+                                                <input type="text" name="middle_name" id="middle_name" value="{{ old('middle_name') }}" autocomplete="middle_name"
                                                     class="block flex-1 border-0 bg-transparent py-1.5 pl-4 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm/6"
                                                     placeholder="Middle name">
                                             </div>
+                                            @error('middle_name')
+                                            <p class="text-red-500">{{ $message }}</p>
+                                            @enderror
                                         </div>
                                     </div>
 
@@ -53,10 +59,13 @@
                                         <div class="mt-2">
                                             <div
                                                 class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                                                <input type="text" name="last_name" id="last_name" autocomplete="last_name"
+                                                <input type="text" name="last_name" id="last_name" value="{{ old('last_name') }}" autocomplete="last_name"
                                                     class="block flex-1 border-0 bg-transparent py-1.5 pl-4 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm/6"
                                                     placeholder="Last name">
                                             </div>
+                                            @error('last_name')
+                                            <p class="text-red-500">{{ $message }}</p>
+                                            @enderror
                                         </div>
                                     </div>
 
@@ -66,10 +75,13 @@
                                         <div class="mt-2">
                                             <div
                                                 class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                                                <input type="text" name="nickname" id="nickname" autocomplete="nickname"
+                                                <input type="text" name="nickname" id="nickname" value="{{ old('nickname') }}" autocomplete="nickname"
                                                     class="block flex-1 border-0 bg-transparent py-1.5 pl-4 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm/6"
                                                     placeholder="Nickname">
                                             </div>
+                                            @error('nickname')
+                                            <p class="text-red-500">{{ $message }}</p>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -82,25 +94,36 @@
                                             class="block text-sm/6 font-medium text-gray-900">About</label>
                                         <div class="mt-2">
                                             <textarea id="about" name="about" rows="3"
-                                                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"></textarea>
+                                                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
+                                                >{{ old('about') }}</textarea>
                                         </div>
                                         <p class="mt-3 text-sm/6 text-gray-600">Write a few sentences about contact.
                                         </p>
+                                        @error('about')
+                                        <p class="text-red-500">{{ $message }}</p>
+                                        @enderror
                                     </div>
 
                                     <div class="col-span-full">
                                         <label for="photo"
                                             class="block text-sm/6 font-medium text-gray-900">Photo <span class="text-xs">PNG, JPG, GIF up to 10MB</span></label>
-                                        <div class="mt-2 flex items-center gap-x-3">
+                                        <div class="flex flex-col-1 items-center gap-x-4">
                                             <svg class="h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor"
                                                 aria-hidden="true" data-slot="icon">
                                                 <path fill-rule="evenodd"
                                                     d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"
                                                     clip-rule="evenodd" />
                                             </svg>
-                                            <button type="button"
-                                                class="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">Upload</button>
+                                            <input type="file" name="photo" class="mt-2 flex items-center gap-x-3" />
                                         </div>
+
+
+                                            {{-- <button type="button"
+                                                class="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">Upload</button> --}}
+
+                                        @error('photo')
+                                        <p class="text-red-500">{{ $message }}</p>
+                                        @enderror
                                     </div>
 
                                     {{-- <div class="sm:col-span-3">
@@ -204,7 +227,7 @@
                                 <h3 class="mt-8 text-base/7 font-semibold text-gray-900">Emails</h4>
                                 <div class="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6" id="email-section">
                                     <div class="sm:col-span-3">
-                                        <label for="email" class="block text-sm/6 font-medium text-gray-900">Email</label>
+                                        <label for="emails[0][email]" class="block text-sm/6 font-medium text-gray-900">Email</label>
                                         <div class="mt-2">
                                             <input type="email" name="emails[0][email]" value="{{ old('emails.0.email') }}"
                                                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
@@ -232,57 +255,90 @@
 
                                 <button class="mt-2 text-blue-500 hover:underline" type="button" onclick="addEmail()">Add another email</button>
 
-                                <div class="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                                    <div class="sm:col-span-3">
-                                        <label for="country"
+                                <div class="mt-4 grid grid-cols-3 gap-x-6 gap-y-8 sm:grid-cols-6" id="address-section">
+                                    <div class="sm:col-span-1">
+                                        <label for="addresses[0][country_id]"
                                             class="block text-sm/6 font-medium text-gray-900">Country</label>
                                         <div class="mt-2">
-                                            <select id="country" name="country" autocomplete="country-name"
+                                            <select name="addresses[0][country_id]"
                                                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm/6">
-                                                <option>United States</option>
-                                                <option>Canada</option>
-                                                <option>Mexico</option>
+                                                <option value="">Choose a country</option>
+                                                @foreach ($countries as $country)
+                                                <option value="{{ $country->id }}" {{ old('addresses.0.country_id')==$country->id ?
+                                                    'selected' : '' }}>
+                                                    {{ $country->name }}
+                                                </option>
+                                                @endforeach
                                             </select>
+                                            @error('addresses.0.country_id')
+                                            <p class="text-red-500">{{ $message }}</p>
+                                            @enderror
                                         </div>
                                     </div>
 
-                                    <div class="col-span-full">
-                                        <label for="street-address"
-                                            class="block text-sm/6 font-medium text-gray-900">Street address</label>
+                                    <div class="sm:col-span-2">
+                                        <label for="addresses[0][city]" class="block text-sm/6 font-medium text-gray-900">City</label>
                                         <div class="mt-2">
-                                            <input type="text" name="street-address" id="street-address"
-                                                autocomplete="street-address"
+                                            <input type="text" name="addresses[0][city]" value="{{ old('addresses.0.city') }}"
                                                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
                                         </div>
+                                        @error('addresses.0.city')
+                                        <p class="text-red-500">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-span-3">
+                                        <label for="addresses[0][street]"
+                                            class="block text-sm/6 font-medium text-gray-900">Street name</label>
+                                        <div class="mt-2">
+                                            <input type="text" name="addresses[0][street]" value="{{ old('addresses.0.street') }}"
+                                                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
+                                        </div>
+                                        @error('addresses.0.street')
+                                        <p class="text-red-500">{{ $message }}</p>
+                                        @enderror
                                     </div>
 
                                     <div class="sm:col-span-2 sm:col-start-1">
-                                        <label for="city" class="block text-sm/6 font-medium text-gray-900">City</label>
+                                        <label for="addresses[0][building_number]" class="block text-sm/6 font-medium text-gray-900">Building Number</label>
                                         <div class="mt-2">
-                                            <input type="text" name="city" id="city" autocomplete="address-level2"
+                                            <input type="text" name="addresses[0][building_number]" value="{{ old('addresses.0.building_number') }}"
                                                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
                                         </div>
+                                        @error('addresses.0.building_number')
+                                        <p class="text-red-500">{{ $message }}</p>
+                                        @enderror
                                     </div>
 
                                     <div class="sm:col-span-2">
-                                        <label for="region" class="block text-sm/6 font-medium text-gray-900">State /
-                                            Province</label>
+                                        <label for="addresses[0][apartment_number]" class="block text-sm/6 font-medium text-gray-900">
+                                            Apartment Number</label>
                                         <div class="mt-2">
-                                            <input type="text" name="region" id="region" autocomplete="address-level1"
+                                            <input type="text" name="addresses[0][apartment_number]" value="{{ old('addresses.0.apartment_number') }}"
                                                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
                                         </div>
+                                        @error('addresses[0][apartment_number]')
+                                        <p class="text-red-500">{{ $message }}</p>
+                                        @enderror
                                     </div>
 
                                     <div class="sm:col-span-2">
-                                        <label for="postal-code" class="block text-sm/6 font-medium text-gray-900">ZIP /
-                                            Postal code</label>
+                                        <label for="addresses[0][label]" class="block text-sm/6 font-medium text-gray-900">Label</label>
                                         <div class="mt-2">
-                                            <input type="text" name="postal-code" id="postal-code"
-                                                autocomplete="postal-code"
-                                                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
+                                            <select name="addresses[0][label]" value="{{ old('addresses.0.label') }}"
+                                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm/6">
+                                                <option value="">Select a type</option>
+                                                @foreach ($labelTypes as $labelType)
+                                                <option value="{{ $labelType->value }}" {{ old('addresses.0.label')==$labelType->value ? 'selected' :
+                                                    '' }}>
+                                                    {{ ucfirst($labelType->value) }}
+                                                </option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
+                                <button class="mt-2 text-blue-500 hover:underline" type="button" onclick="addAddress()">Add another address</button>
                             </div>
 
                         </div>
@@ -391,68 +447,110 @@
             `);
         }
 
-              function addAddress() {
-                  const addressSection = document.getElementById('address-section');
-                  const index = addressSection.children.length;
-                  // Render label options using the enum
-                  const labelOptions = `
-                      <option value="">Select a type</option>
-                      @foreach ($labelTypes as $labelType)
-                          <option value="{{ $labelType->value }}">{{ ucfirst($labelType->value) }}</option>
-                      @endforeach
-                  `;
-                  // Render country options using the provided list of countries
-                  const countryOptions = `
-                      <option value="">Choose a country</option>
-                      @foreach ($countries as $country)
-                          <option value="{{ $country->id }}">{{ $country->name }}</option>
-                      @endforeach
-                  `;
-                  // Insert new address fields
-                  addressSection.insertAdjacentHTML('beforeend', `
-                      <div>
-                          <label>Country</label>
-                          <select name="addresses[${index}][country_id]">
-                              ${countryOptions}
-                          </select>
-                          @error('addresses.${index}.country_id')
-                              <p class="text-red-500">{{ $message }}</p>
-                          @enderror
+        function addAddress() {
+            const addressSection = document.getElementById('address-section');
+            const index = addressSection.children.length;
+            // Render label options using the enum
+            const labelOptions = `
+                <option value="">Select a type</option>
+                @foreach ($labelTypes as $labelType)
+                    <option value="{{ $labelType->value }}">{{ ucfirst($labelType->value) }}</option>
+                @endforeach
+            `;
+            // Render country options using the provided list of countries
+            const countryOptions = `
+                <option value="">Choose a country</option>
+                @foreach ($countries as $country)
+                    <option value="{{ $country->id }}">{{ $country->name }}</option>
+                @endforeach
+            `;
+            // Insert new address fields
+            addressSection.insertAdjacentHTML('afterend', `
+                <div class="mt-4 grid grid-cols-3 gap-x-6 gap-y-8 sm:grid-cols-6" id="address-section">
+                <div class="sm:col-span-1">
+                    <label for="addresses[${index}][country_id]"
+                        class="block text-sm/6 font-medium text-gray-900">Country</label>
+                    <div class="mt-2">
+                        <select name="addresses[${index}][country_id]"
+                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm/6">
+                            <option value="">Choose a country</option>
+                            @foreach ($countries as $country)
+                            <option value="{{ $country->id }}" {{ old('addresses.0.country_id')==$country->id ?
+                                'selected' : '' }}>
+                                {{ $country->name }}
+                            </option>
+                            @endforeach
+                        </select>
+                        @error('addresses.${index}.country_id')
+                        <p class="text-red-500">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
 
-                          <label>City</label>
-                          <input type="text" name="addresses[${index}][city]" value="{{ old('addresses.${index}.city') }}">
-                          @error('addresses.${index}.city')
-                              <p class="text-red-500">{{ $message }}</p>
-                          @enderror
+                <div class="sm:col-span-2">
+                    <label for="addresses[${index}][city]" class="block text-sm/6 font-medium text-gray-900">City</label>
+                    <div class="mt-2">
+                        <input type="text" name="addresses[${index}][city]" value="{{ old('addresses.${index}.city') }}"
+                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
+                    </div>
+                    @error('addresses.${index}.city')
+                    <p class="text-red-500">{{ $message }}</p>
+                    @enderror
+                </div>
 
-                          <label>Street</label>
-                          <input type="text" name="addresses[${index}][street]" value="{{ old('addresses.${index}.street') }}">
-                          @error('addresses.${index}.street')
-                              <p class="text-red-500">{{ $message }}</p>
-                          @enderror
+                <div class="col-span-3">
+                    <label for="addresses[${index}][street]"
+                        class="block text-sm/6 font-medium text-gray-900">Street name</label>
+                    <div class="mt-2">
+                        <input type="text" name="addresses[${index}][street]" value="{{ old('addresses.${index}.street') }}"
+                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
+                    </div>
+                    @error('addresses.${index}.street')
+                    <p class="text-red-500">{{ $message }}</p>
+                    @enderror
+                </div>
 
-                          <label>Building Number</label>
-                          <input type="text" name="addresses[${index}][building_number]" value="{{ old('addresses.${index}.building_number') }}">
-                          @error('addresses.${index}.building_number')
-                              <p class="text-red-500">{{ $message }}</p>
-                          @enderror
+                <div class="sm:col-span-2 sm:col-start-1">
+                    <label for="addresses[${index}][building_number]" class="block text-sm/6 font-medium text-gray-900">Building Number</label>
+                    <div class="mt-2">
+                        <input type="text" name="addresses[${index}][building_number]" value="{{ old('addresses.${index}.building_number') }}"
+                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
+                    </div>
+                    @error('addresses.${index}.building_number')
+                    <p class="text-red-500">{{ $message }}</p>
+                    @enderror
+                </div>
 
-                          <label>Apartment Number</label>
-                          <input type="text" name="addresses[${index}][apartment_number]" value="{{ old('addresses.${index}.apartment_number') }}">
-                          @error('addresses.${index}.apartment_number')
-                              <p class="text-red-500">{{ $message }}</p>
-                          @enderror
+                <div class="sm:col-span-2">
+                    <label for="addresses[${index}][apartment_number]" class="block text-sm/6 font-medium text-gray-900">
+                        Apartment Number</label>
+                    <div class="mt-2">
+                        <input type="text" name="addresses[${index}][apartment_number]" value="{{ old('addresses.${index}.apartment_number') }}"
+                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
+                    </div>
+                    @error('addresses[${index}][apartment_number]')
+                    <p class="text-red-500">{{ $message }}</p>
+                    @enderror
+                </div>
 
-                          <label>Label</label>
-                          <select name="addresses[${index}][label]">
-                              ${labelOptions}
-                          </select>
-                          @error('addresses.${index}.label')
-                              <p class="text-red-500">{{ $message }}</p>
-                          @enderror
-                      </div>
-                  `);
-              }
+                <div class="sm:col-span-2">
+                    <label for="addresses[${index}][label]" class="block text-sm/6 font-medium text-gray-900">Label</label>
+                    <div class="mt-2">
+                        <select name="addresses[${index}][label]" value="{{ old('addresses.${index}.label') }}"
+                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm/6">
+                            <option value="">Select a type</option>
+                            @foreach ($labelTypes as $labelType)
+                            <option value="{{ $labelType->value }}" {{ old('addresses.0.label')==$labelType->value ? 'selected' :
+                                '' }}>
+                                {{ ucfirst($labelType->value) }}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+            </div>
+            `);
+        }
 
 
               let companyIndex = 1;
