@@ -26,7 +26,7 @@ class ContactController extends Controller
         $labelTypes = LabelType::cases();
         $countries = Country::get(['id', 'name']);
         $dialCodes = Country::query()->orderBy('dial_code')->pluck('dial_code', 'id');
-        return view('contacts.create', compact('dialCodes', 'countries', 'labelTypes'));
+        return view('contacts.create2', compact('dialCodes', 'countries', 'labelTypes'));
     }
 
     /**

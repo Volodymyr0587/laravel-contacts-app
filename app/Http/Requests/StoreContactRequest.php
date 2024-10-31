@@ -3,8 +3,8 @@
 namespace App\Http\Requests;
 
 use App\Enums\LabelType;
-use App\Rules\PhoneNumber as Phone;
 use Illuminate\Validation\Rule;
+use App\Rules\PhoneNumber as Phone;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreContactRequest extends FormRequest
