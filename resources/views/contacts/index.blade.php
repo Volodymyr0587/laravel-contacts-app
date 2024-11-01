@@ -12,7 +12,7 @@
 
                     <ul role="list" class="divide-y divide-gray-100">
                         @forelse ($contacts as $contact)
-                        <li class="flex justify-between gap-x-6 py-5">
+                        <li class="flex justify-between items-center gap-x-6 py-5 px-5 rounded-md hover:bg-gray-100">
                             <div class="flex min-w-0 gap-x-4">
                                 @php
                                     $firstLetter = strtoupper(substr($contact->first_name, 0, 1));
@@ -30,7 +30,7 @@
                                     </div>
                                 @endif
                                 <div class="min-w-0 flex-auto">
-                                    <div class="flex items-center gap-x-4 text-sm/6 font-semibold text-gray-900">
+                                    <div class="flex justify-between items-center gap-x-4 text-sm/6 font-semibold text-gray-900">
                                         <a href="{{ route('contacts.show', $contact) }}" class="hover:underline hover:text-blue-500">
                                             {{ $contact->first_name }} {{ $contact->last_name }}
                                         </a>
