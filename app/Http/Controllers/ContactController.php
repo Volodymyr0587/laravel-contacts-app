@@ -15,7 +15,11 @@ class ContactController extends Controller
      */
     public function index()
     {
-        return auth()->user()->contacts()->get();
+        $contacts = auth()->user()->contacts()
+            ->with(['emails', 'phoneNumbers', 'jobNames'])
+            ->paginate(5);
+
+        return view('contacts.index', compact('contacts'));
     }
 
     /**
@@ -122,7 +126,7 @@ class ContactController extends Controller
      */
     public function show(Contact $contact)
     {
-        return view('contacts.show', $contact);
+        return view('contacts.show', compact('contact'));
     }
 
     /**
