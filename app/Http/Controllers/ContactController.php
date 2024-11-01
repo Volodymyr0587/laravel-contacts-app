@@ -188,6 +188,8 @@ class ContactController extends Controller
      */
     public function destroy(Contact $contact)
     {
-        //
+        $contact->delete();
+
+        return to_route('contacts.index')->with('success', 'The contact has been moved to the trash');
     }
 }
