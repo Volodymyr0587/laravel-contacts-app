@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\JobName;
 use App\Models\Birthday;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -20,6 +21,8 @@ class Contact extends Model
         'middle_name',
         'last_name',
         'nickname',
+        'about',
+        'image',
     ];
 
     /**
@@ -84,5 +87,24 @@ class Contact extends Model
     public function jobNames(): HasMany
     {
         return $this->hasMany(JobName::class);
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::updating(function ($contact) {
+            if (request()->hasFile('image')) {
+                if ($contact->getOriginal('image')) {
+                    Storage::disk('public')->delete($contact->getOriginal('image'));
+                }
+            }
+        });
+
+        static::forceDeleting(function ($contact) {
+            if ($contact->image) {
+                Storage::disk('public')->delete($contact->image);
+            }
+        });
     }
 }

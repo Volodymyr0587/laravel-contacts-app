@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('middle_name', 255)->nullable();
             $table->string('last_name', 2255)->nullable();
             $table->string('nickname', 255)->nullable();
+            $table->text('about')->nullable();
+            $table->string('image')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

@@ -81,6 +81,8 @@ class StoreContactRequest extends FormRequest
             'middle_name' => 'nullable|string|max:255',
             'last_name' => 'nullable|string|max:255',
             'nickname' => 'nullable|string|max:255',
+            'about' => 'nullable|string|max:10000',
+            'image' => 'nullable|image|mimes:png,jpg,jpeg|max:10240',
             // Birthday
             'birthday.day' => 'nullable|required_with:birthday.month|integer|between:1,31',
             'birthday.month' => 'nullable|required_with:birthday.day|integer|between:1,12',

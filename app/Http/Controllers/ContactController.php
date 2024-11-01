@@ -35,6 +35,8 @@ class ContactController extends Controller
     public function store(StoreContactRequest $request)
     {
         $validated = $request->validated();
+        // Handle image upload
+        $image = $this->handleImageUpload($request);
 
         try {
             // Create contact
@@ -43,6 +45,8 @@ class ContactController extends Controller
                 'middle_name' => $validated['middle_name'],
                 'last_name' => $validated['last_name'],
                 'nickname' => $validated['nickname'],
+                'about' => $validated['about'],
+                'image' => $image,
             ]);
 
             // Create birthday if provided
@@ -94,9 +98,20 @@ class ContactController extends Controller
                 ->with('success', 'Contact created successfully.');
 
         } catch (\Exception $e) {
+            // Log the error for debugging
+            \Log::error('Error creating contact: ' . $e->getMessage());
             return back()->with('error', 'Error creating contact: ' . $e->getMessage())
                 ->withInput();
         }
+    }
+
+    protected function handleImageUpload($request)
+    {
+        if ($request->hasFile('image')) {
+            return $request->file('image')->store('contacts', 'public');
+        }
+
+        return null;
     }
 
 
@@ -121,9 +136,19 @@ class ContactController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Contact $contact)
+    public function update(StoreContactRequest $request, Contact $contact)
     {
-        //
+        $validated = $request->validated();
+
+        // Обробка зображення
+        if ($request->hasFile('image')) {
+            $validated['image'] = $this->handleImageUpload($request);
+        }
+
+        // Оновлюємо запис
+        $contact->update($validated);
+
+        return to_route('notes.index')->with('success', 'Record successfully updated.');
     }
 
     /**
