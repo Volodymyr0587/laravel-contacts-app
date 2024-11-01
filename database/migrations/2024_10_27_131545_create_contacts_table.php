@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('nickname', 255)->nullable();
             $table->text('about')->nullable();
             $table->string('image')->nullable();
+            $table->string('color')->default("#3d7ddb");
+            $table->boolean('favorites')->default(false);
             $table->softDeletes();
             $table->timestamps();
         });

@@ -23,6 +23,8 @@ class Contact extends Model
         'nickname',
         'about',
         'image',
+        'favorites',
+        'color',
     ];
 
     /**
@@ -88,6 +90,12 @@ class Contact extends Model
     {
         return $this->hasMany(JobName::class);
     }
+
+    public function scopeFavorites($query)
+    {
+        return $query->where('favorites', true);
+    }
+
 
     protected static function boot()
     {

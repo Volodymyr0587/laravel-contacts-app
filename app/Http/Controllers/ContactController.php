@@ -17,6 +17,7 @@ class ContactController extends Controller
     {
         $contacts = auth()->user()->contacts()
             ->with(['emails', 'phoneNumbers', 'jobNames'])
+            ->orderByDesc('favorites')
             ->paginate(5);
 
         return view('contacts.index', compact('contacts'));
@@ -51,6 +52,7 @@ class ContactController extends Controller
                 'nickname' => $validated['nickname'],
                 'about' => $validated['about'],
                 'image' => $image,
+                'color' => $validated['color'],
             ]);
 
             // Create birthday if provided
@@ -118,8 +120,12 @@ class ContactController extends Controller
         return null;
     }
 
+    public function toggleFavorite(Contact $contact)
+    {
+        $contact->update(['favorites' => !$contact->favorites]);
 
-
+        return redirect()->back()->with('status', 'Favorite status updated');
+    }
 
     /**
      * Display the specified resource.

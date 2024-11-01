@@ -121,6 +121,18 @@
                                         <p class="text-red-500">{{ $message }}</p>
                                         @enderror
                                     </div>
+
+                                    <div class="col-span-full">
+                                        <div class="flex flex-col-1 items-center gap-x-4">
+                                            <label for="hs-color-input" class="block text-sm font-medium">Color</label>
+                                            <input type="color" name="color" class="p-1 h-10 w-14 block bg-white border border-gray-200 cursor-pointer rounded-lg disabled:opacity-50 disabled:pointer-events-none" id="color" value="#2563eb" title="Choose your color">
+                                        </div>
+
+                                        @error('color')
+                                        <p class="text-red-500">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+
                                 </div>
 
                                 <h3 class="mt-8 text-base/7 font-semibold text-gray-900">Birth date</h3>
