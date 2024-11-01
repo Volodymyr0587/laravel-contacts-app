@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\LabelType;
 use App\Models\Contact;
 use App\Models\Country;
+use App\Models\PhoneNumber;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreContactRequest;
 
@@ -162,7 +163,13 @@ class ContactController extends Controller
      */
     public function edit(Contact $contact)
     {
-        //
+        $labelTypes = LabelType::cases();
+        $countries = Country::get(['id', 'name']);
+        $dialCodes = Country::query()->orderBy('dial_code')->pluck('dial_code', 'id');
+
+        session(['previous_url' => url()->previous()]);
+
+        return view('contacts.edit', compact('contact', 'dialCodes', 'countries', 'labelTypes'));
     }
 
     /**
@@ -171,16 +178,81 @@ class ContactController extends Controller
     public function update(StoreContactRequest $request, Contact $contact)
     {
         $validated = $request->validated();
+        // Handle image upload
+        $image = $this->handleImageUpload($request);
 
-        // Обробка зображення
-        if ($request->hasFile('image')) {
-            $validated['image'] = $this->handleImageUpload($request);
+        try {
+            // Create contact
+            $contact->update([
+                'first_name' => $validated['first_name'],
+                'middle_name' => $validated['middle_name'],
+                'last_name' => $validated['last_name'],
+                'nickname' => $validated['nickname'],
+                'about' => $validated['about'],
+                'image' => $image,
+                'color' => $validated['color'],
+            ]);
+
+            // Create birthday if provided
+            if (!empty($validated['birthday'])) {
+                $contact->birthday()->updateOrCreate($validated['birthday']);
+            }
+
+            // Create emails
+            if (!empty($validated['emails'])) {
+                foreach ($validated['emails'] as $emailData) {
+                    $contact->emails()->updateOrCreate($emailData);
+                }
+            }
+
+            // Create phone numbers
+            if (!empty($validated['phone_numbers'])) {
+                foreach ($validated['phone_numbers'] as $phoneData) {
+                    $contact->phoneNumbers()->updateOrCreate($phoneData);
+                }
+            }
+
+            // Create addresses
+            if (!empty($validated['addresses'])) {
+                foreach ($validated['addresses'] as $addressData) {
+                    $contact->addresses()->updateOrCreate($addressData);
+                }
+            }
+
+            // Create companies and job names
+            if (!empty($validated['companies'])) {
+                foreach ($validated['companies'] as $companyData) {
+                    // Create a new company for the contact
+                    $company = $contact->companies()->updateOrCreate([
+                        'name' => $companyData['name'],
+                    ]);
+                    // Create job titles for the company
+                    if (!empty($companyData['job_names'])) {
+                        foreach ($companyData['job_names'] as $jobNameData) {
+                            $company->jobNames()->updateOrCreate([
+                                'title' => $jobNameData['title'],
+                                'contact_id' => $contact->id,
+                            ]);
+                        }
+                    }
+                }
+            }
+
+            return redirect()->route('contacts.show', $contact)
+                ->with('success', 'Contact updated successfully.');
+
+        } catch (\Exception $e) {
+            // Log the error for debugging
+            \Log::error('Error updating contact: ' . $e->getMessage());
+            return back()->with('error', 'Error updating contact: ' . $e->getMessage())
+                ->withInput();
         }
+    }
 
-        // Оновлюємо запис
-        $contact->update($validated);
-
-        return to_route('notes.index')->with('success', 'Record successfully updated.');
+    public function destroyPhoneNumber(PhoneNumber $phoneNumber)
+    {
+        $phoneNumber->delete();
+        return back()->with('message', 'Phone number has been deleted');
     }
 
     /**

@@ -103,7 +103,7 @@
                         <ul class="mt-4 space-y-2">
                             @forelse ($contact->phoneNumbers as $phoneNumber)
                             <li class="flex items-center justify-between">
-                                <span class="text-gray-600">{{ $phoneNumber->phone_number }}</span>
+                                <span class="text-gray-600">{{ $phoneNumber->dial_code }} {{ $phoneNumber->phone_number }}</span>
                             </li>
                             @empty
                             <li class="text-gray-400">No phone numbers available.</li>
