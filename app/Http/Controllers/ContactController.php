@@ -31,6 +31,9 @@ class ContactController extends Controller
         $labelTypes = LabelType::cases();
         $countries = Country::get(['id', 'name']);
         $dialCodes = Country::query()->orderBy('dial_code')->pluck('dial_code', 'id');
+
+        session(['previous_url' => url()->previous()]);
+
         return view('contacts.create', compact('dialCodes', 'countries', 'labelTypes'));
     }
 
@@ -132,7 +135,26 @@ class ContactController extends Controller
      */
     public function show(Contact $contact)
     {
-        return view('contacts.show', compact('contact'));
+        $backUrl = $this->determineBackUrl();
+        return view('contacts.show', compact('contact', 'backUrl'));
+    }
+
+
+    /**
+     *   Check if the previous URL contains the create route
+     *   If it does, we redirect to the index page
+     *   If not, we go back to the previous URL
+     * @return string
+     */
+    protected function determineBackUrl()
+    {
+        $previousUrl = url()->previous();
+        $createRoute = route('contacts.create');
+        $indexRoute = route('contacts.index');
+
+        return (strpos($previousUrl, $createRoute) !== false)
+            ? $indexRoute
+            : $previousUrl;
     }
 
     /**
