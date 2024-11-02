@@ -249,12 +249,6 @@ class ContactController extends Controller
         }
     }
 
-    public function destroyPhoneNumber(PhoneNumber $phoneNumber)
-    {
-        $phoneNumber->delete();
-        return back()->with('message', 'Phone number has been deleted');
-    }
-
     /**
      * Remove the specified resource from storage.
      */

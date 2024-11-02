@@ -20,7 +20,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('contacts', ContactController::class);
     Route::put('/contacts/{contact}/toggle-favorite', [ContactController::class, 'toggleFavorite'])
         ->name('contacts.toggleFavorite');
-    Route::delete('/contacts/{phoneNumber}', [ContactController::class, 'destroyPhoneNumber'])->name('contacts.phoneNumber.destroy');
 });
 
 require __DIR__.'/auth.php';
