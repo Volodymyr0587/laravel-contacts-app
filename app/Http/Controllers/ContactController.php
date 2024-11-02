@@ -175,14 +175,88 @@ class ContactController extends Controller
     /**
      * Update the specified resource in storage.
      */
+    // public function update(StoreContactRequest $request, Contact $contact)
+    // {
+    //     $validated = $request->validated();
+    //     // Handle image upload
+    //     $image = $this->handleImageUpload($request);
+
+    //     try {
+    //         // Create contact
+    //         $contact->update([
+    //             'first_name' => $validated['first_name'],
+    //             'middle_name' => $validated['middle_name'],
+    //             'last_name' => $validated['last_name'],
+    //             'nickname' => $validated['nickname'],
+    //             'about' => $validated['about'],
+    //             'image' => $image,
+    //             'color' => $validated['color'],
+    //         ]);
+
+    //         // Create birthday if provided
+    //         if (!empty($validated['birthday'])) {
+    //             $contact->birthday()->updateOrCreate($validated['birthday']);
+    //         }
+
+    //         // Create emails
+    //         if (!empty($validated['emails'])) {
+    //             foreach ($validated['emails'] as $emailData) {
+    //                 $contact->emails()->updateOrCreate($emailData);
+    //             }
+    //         }
+
+    //         // Create phone numbers
+    //         if (!empty($validated['phone_numbers'])) {
+    //             foreach ($validated['phone_numbers'] as $phoneData) {
+    //                 $contact->phoneNumbers()->updateOrCreate($phoneData);
+    //             }
+    //         }
+
+    //         // Create addresses
+    //         if (!empty($validated['addresses'])) {
+    //             foreach ($validated['addresses'] as $addressData) {
+    //                 $contact->addresses()->updateOrCreate($addressData);
+    //             }
+    //         }
+
+    //         // Create companies and job names
+    //         if (!empty($validated['companies'])) {
+    //             foreach ($validated['companies'] as $companyData) {
+    //                 // Create a new company for the contact
+    //                 $company = $contact->companies()->updateOrCreate([
+    //                     'name' => $companyData['name'],
+    //                 ]);
+    //                 // Create job titles for the company
+    //                 if (!empty($companyData['job_names'])) {
+    //                     foreach ($companyData['job_names'] as $jobNameData) {
+    //                         $company->jobNames()->updateOrCreate([
+    //                             'title' => $jobNameData['title'],
+    //                             'contact_id' => $contact->id,
+    //                         ]);
+    //                     }
+    //                 }
+    //             }
+    //         }
+
+    //         return redirect()->route('contacts.show', $contact)
+    //             ->with('success', 'Contact updated successfully.');
+
+    //     } catch (\Exception $e) {
+    //         // Log the error for debugging
+    //         \Log::error('Error updating contact: ' . $e->getMessage());
+    //         return back()->with('error', 'Error updating contact: ' . $e->getMessage())
+    //             ->withInput();
+    //     }
+    // }
     public function update(StoreContactRequest $request, Contact $contact)
     {
         $validated = $request->validated();
+
         // Handle image upload
         $image = $this->handleImageUpload($request);
 
         try {
-            // Create contact
+            // Update contact details
             $contact->update([
                 'first_name' => $validated['first_name'],
                 'middle_name' => $validated['middle_name'],
@@ -193,48 +267,58 @@ class ContactController extends Controller
                 'color' => $validated['color'],
             ]);
 
-            // Create birthday if provided
+            // Update or delete existing birthday
             if (!empty($validated['birthday'])) {
-                $contact->birthday()->updateOrCreate($validated['birthday']);
+                $contact->birthday()->updateOrCreate([], $validated['birthday']);
+            } else {
+                $contact->birthday()->delete();
             }
 
-            // Create emails
-            if (!empty($validated['emails'])) {
-                foreach ($validated['emails'] as $emailData) {
-                    $contact->emails()->updateOrCreate($emailData);
-                }
+            // Sync emails: update existing, add new, and remove deleted
+            $existingEmailIds = collect($validated['emails'])->pluck('id')->filter();
+            $contact->emails()->whereNotIn('id', $existingEmailIds)->delete();
+            foreach ($validated['emails'] as $emailData) {
+                $contact->emails()->updateOrCreate(
+                    ['id' => $emailData['id'] ?? null],
+                    ['email' => $emailData['email'], 'label' => $emailData['label']]
+                );
             }
 
-            // Create phone numbers
-            if (!empty($validated['phone_numbers'])) {
-                foreach ($validated['phone_numbers'] as $phoneData) {
-                    $contact->phoneNumbers()->updateOrCreate($phoneData);
-                }
+            // Sync phone numbers
+            $existingPhoneIds = collect($validated['phone_numbers'])->pluck('id')->filter();
+            $contact->phoneNumbers()->whereNotIn('id', $existingPhoneIds)->delete();
+            foreach ($validated['phone_numbers'] as $phoneData) {
+                $contact->phoneNumbers()->updateOrCreate(
+                    ['id' => $phoneData['id'] ?? null],
+                    ['dial_code' => $phoneData['dial_code'], 'phone_number' => $phoneData['phone_number'], 'label' => $phoneData['label']]
+                );
             }
 
-            // Create addresses
-            if (!empty($validated['addresses'])) {
-                foreach ($validated['addresses'] as $addressData) {
-                    $contact->addresses()->updateOrCreate($addressData);
-                }
+            // Sync addresses
+            $existingAddressIds = collect($validated['addresses'])->pluck('id')->filter();
+            $contact->addresses()->whereNotIn('id', $existingAddressIds)->delete();
+            foreach ($validated['addresses'] as $addressData) {
+                $contact->addresses()->updateOrCreate(
+                    ['id' => $addressData['id'] ?? null],
+                    $addressData
+                );
             }
 
-            // Create companies and job names
-            if (!empty($validated['companies'])) {
-                foreach ($validated['companies'] as $companyData) {
-                    // Create a new company for the contact
-                    $company = $contact->companies()->updateOrCreate([
-                        'name' => $companyData['name'],
-                    ]);
-                    // Create job titles for the company
-                    if (!empty($companyData['job_names'])) {
-                        foreach ($companyData['job_names'] as $jobNameData) {
-                            $company->jobNames()->updateOrCreate([
-                                'title' => $jobNameData['title'],
-                                'contact_id' => $contact->id,
-                            ]);
-                        }
-                    }
+            // Sync companies and job names
+            foreach ($validated['companies'] as $companyData) {
+                $company = $contact->companies()->updateOrCreate(
+                    ['id' => $companyData['id'] ?? null],
+                    ['name' => $companyData['name']]
+                );
+
+                // Update or delete job names associated with the company
+                $existingJobIds = collect($companyData['job_names'])->pluck('id')->filter();
+                $company->jobNames()->whereNotIn('id', $existingJobIds)->delete();
+                foreach ($companyData['job_names'] as $jobNameData) {
+                    $company->jobNames()->updateOrCreate(
+                        ['id' => $jobNameData['id'] ?? null],
+                        ['title' => $jobNameData['title'], 'contact_id' => $contact->id]
+                    );
                 }
             }
 
@@ -248,6 +332,7 @@ class ContactController extends Controller
                 ->withInput();
         }
     }
+
 
     /**
      * Remove the specified resource from storage.
