@@ -433,9 +433,16 @@
                         @enderror
                     </div>
                 </div>
+                <button type="button" class="remove-phone" onclick="removePhoneField(this)">Remove</button>
             </div>
             `);
         }
+
+        function removePhoneField(button) {
+            // Find the parent container of the field and remove it
+            button.parentElement.remove();
+        }
+
 
         function addEmail() {
             const emailSection = document.getElementById('email-section');
