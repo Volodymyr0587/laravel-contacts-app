@@ -17,9 +17,14 @@
                     </x-nav-link>
                     <x-nav-link :href="route('contacts.index')" :active="request()->routeIs('contacts.index')">
                         {{ __('All Contacts') }}
+                        <x-badges.nav-badge bgcolor="blue" :count="$contactsCount"/>
                     </x-nav-link>
                     <x-nav-link :href="route('contacts.create')" :active="request()->routeIs('contacts.create')">
                         {{ __('Create Contact') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('contacts.trash')" :active="request()->routeIs('contacts.trash')">
+                        {{ __('Trash') }}
+                        <x-badges.nav-badge bgcolor="red" :count="$trashContactsCount"/>
                     </x-nav-link>
                 </div>
             </div>

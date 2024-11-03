@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TrashContactController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -20,6 +21,19 @@ Route::middleware('auth')->group(function () {
     Route::resource('contacts', ContactController::class);
     Route::put('/contacts/{contact}/toggle-favorite', [ContactController::class, 'toggleFavorite'])
         ->name('contacts.toggleFavorite');
+
+    Route::controller(TrashContactController::class)->group(function () {
+        Route::prefix('trash')->group(function () {
+            Route::name('contacts.')->group(function () {
+                Route::get('/',  'trash')->name('trash');
+                Route::post('/restore/{contact}', 'restore')->withTrashed()->name('restore');
+                Route::post('/restore-all', 'restoreAll')->withTrashed()->name('restore-all');
+                Route::delete('/force-delete/{contact}', 'forceDelete')->withTrashed()->name('force-delete');
+                Route::delete('/force-delete-all', 'forceDeleteAll')->name('forceDeleteAll');
+            });
+        });
+    });
+
 });
 
 require __DIR__.'/auth.php';
