@@ -14,7 +14,7 @@
                         <!-- Favorite Button -->
                         <form action="{{ route('contacts.restore-all') }}" method="POST">
                             @csrf
-                            <button type="submit" class="px-5 py-2 bg-green-600 text-white rounded-full hover:bg-green-700">
+                            <button type="submit" class="px-5 py-2 bg-green-600 text-white font-bold rounded-full hover:bg-green-700">
                                 Restore all
                             </button>
                         </form>
@@ -22,7 +22,7 @@
                             onsubmit="return confirm('Are you sure you want to empty trash? This action is irreversible!');">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="px-5 py-2 bg-red-600 text-white rounded-full hover:bg-red-700">
+                            <button type="submit" class="px-5 py-2 bg-red-600 text-white font-bold rounded-full hover:bg-red-700">
                                 Empty Trash
                             </button>
                         </form>
@@ -52,14 +52,15 @@
                                             class="">
                                             {{ $contact->first_name }} {{ $contact->last_name }}
                                         </p>
-                                        <form action="{{ route('contacts.restore', $contact) }}" method="POST">
+                                        <form action="{{ route('contacts.restore', $contact) }}" method="POST" class="has-tooltip">
                                             @csrf
                                             <button type="submit" class="flex items-center justify-center w-10 h-10 rounded-full
                                                 transition duration-300 ease-in-out hover:bg-gray-300 hover:scale-110 hover:-rotate-90">
                                                 <x-svg.restore />
                                             </button>
+                                            <span class='tooltip px-5 py-2 shadow-xl bg-green-600 text-white rounded-tl-2xl rounded-br-2xl ml-8 -mt-20'>Restore</span>
                                         </form>
-                                        <form action="{{ route('contacts.force-delete', $contact) }}" method="POST"
+                                        <form action="{{ route('contacts.force-delete', $contact) }}" method="POST" class="has-tooltip"
                                             onsubmit="return confirm('Are you sure you want to delete this contact? This action is irreversible!');">
                                             @csrf
                                             @method('DELETE')
@@ -68,6 +69,7 @@
                                                 transition duration-300 ease-in-out hover:bg-gray-300 hover:scale-110">
                                                 <x-svg.destroy />
                                             </button>
+                                            <span class='tooltip px-5 py-2 shadow-xl bg-red-600 text-white rounded-tl-2xl rounded-br-2xl ml-8 -mt-20'>Destroy</span>
                                         </form>
                                     </div>
                                     <p class="mt-1 truncate text-xs/5 text-gray-500">{{
