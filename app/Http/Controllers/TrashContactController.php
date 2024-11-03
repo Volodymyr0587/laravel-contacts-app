@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contact;
+use Illuminate\Support\Facades\Gate;
 
 class TrashContactController extends Controller
 {
@@ -14,7 +15,7 @@ class TrashContactController extends Controller
 
     public function restore(Contact $contact)
     {
-        // Gate::authorize('editContact', $contact);
+        Gate::authorize('editContact', $contact);
 
         $contact->restore();
 
@@ -30,18 +31,17 @@ class TrashContactController extends Controller
 
     public function forceDelete(Contact $contact)
     {
-        // Gate::authorize('editContact', $contact);
+        Gate::authorize('editContact', $contact);
 
         $contact->forceDelete();
 
         return redirect()->route('contacts.trash')->with('success', 'Record has been permanently deleted');
     }
 
-    public function forceDeleteAll(Contact $contact)
+    public function forceDeleteAll()
     {
         // Retrieve all auth user trashed contacts
         $trashedContacts = auth()->user()->contacts()->onlyTrashed()->get();
-
         // Force delete each trashed contact
         foreach ($trashedContacts as $contact) {
             $contact->forceDelete();

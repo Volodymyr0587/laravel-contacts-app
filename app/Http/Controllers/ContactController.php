@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\LabelType;
 use App\Models\Contact;
 use App\Models\Country;
+use App\Enums\LabelType;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\StoreContactRequest;
 
 class ContactController extends Controller
@@ -124,6 +125,8 @@ class ContactController extends Controller
 
     public function toggleFavorite(Contact $contact)
     {
+        Gate::authorize('editContact', $contact);
+
         $contact->update(['favorites' => !$contact->favorites]);
 
         return redirect()->back()->with('status', 'Favorite status updated');
@@ -134,6 +137,8 @@ class ContactController extends Controller
      */
     public function show(Contact $contact)
     {
+        Gate::authorize('editContact', $contact);
+
         $backUrl = $this->determineBackUrl();
         return view('contacts.show', compact('contact', 'backUrl'));
     }
@@ -161,6 +166,8 @@ class ContactController extends Controller
      */
     public function edit(Contact $contact)
     {
+        Gate::authorize('editContact', $contact);
+
         $labelTypes = LabelType::cases();
         $countries = Country::get(['id', 'name']);
         $dialCodes = Country::query()->orderBy('dial_code')->pluck('dial_code', 'id');
@@ -175,6 +182,8 @@ class ContactController extends Controller
      */
     public function update(StoreContactRequest $request, Contact $contact)
     {
+        Gate::authorize('editContact', $contact);
+
         $validated = $request->validated();
 
         // Handle image upload
@@ -269,6 +278,8 @@ class ContactController extends Controller
      */
     public function destroy(Contact $contact)
     {
+        Gate::authorize('editContact', $contact);
+
         $contact->delete();
 
         return to_route('contacts.index')->with('success', 'The contact has been moved to the trash');
