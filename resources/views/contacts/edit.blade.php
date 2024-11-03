@@ -301,16 +301,6 @@
                                         @enderror
                                     </div>
 
-                                    {{-- <div class="sm:col-span-2 sm:col-start-1">
-                                        <label for="addresses[{{ $index }}][building_number]" class="block text-sm/6 font-medium text-gray-900">Building Number</label>
-                                        <div class="mt-2">
-                                            <input type="text" name="addresses[{{ $index }}][building_number]" value="{{ old('addresses.{{ $index }}.building_number', $address->building_number) }}"
-                                                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
-                                        </div>
-                                        @error('addresses.{{ $index }}.building_number')
-                                        <p class="text-red-500">{{ $message }}</p>
-                                        @enderror
-                                    </div> --}}
                                     <div class="sm:col-span-2 sm:col-start-1">
                                         <label for="addresses[{{ $index }}][building_number]" class="block text-sm/6 font-medium text-gray-900">Building Number</label>
                                         <div class="mt-2">
@@ -356,13 +346,14 @@
 
                                 <h3 class="mt-8 text-base/7 font-semibold text-gray-900">Companies / Jobs</h3>
                                 <div class="mt-4 grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-6" id="company-section">
+                                    @foreach ($contact->companies as $index => $company)
                                     <div class="sm:col-span-2">
                                         <label for="companies[{{ $index }}][name]"
                                             class="block text-sm/6 font-medium text-gray-900">Company name</label>
                                         <div class="mt-2">
                                             <div
                                                 class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                                                <input type="text" name="companies[{{ $index }}][name]" value="{{ old('companies.' . $index . '.name') }}" autocomplete="companies[{{ $index }}][name]"
+                                                <input type="text" name="companies[{{ $index }}][name]" value="{{ old('companies.' . $index . '.name', $company->name) }}" autocomplete="companies[{{ $index }}][name]"
                                                     class="block flex-1 border-0 bg-transparent py-1.5 pl-4 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm/6"
                                                     placeholder="FedEx">
                                             </div>
@@ -387,6 +378,7 @@
                                             @enderror
                                         </div>
                                     </div>
+                                    @endforeach
                                 </div>
                                 <button class="mt-2 text-blue-500 hover:underline" type="button" onclick="addCompany()">Add another company</button>
                             </div>
