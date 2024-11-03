@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\LabelType;
+use App\Observers\AddressObserver;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -40,5 +41,12 @@ class Address extends Model
     public function country(): BelongsTo
     {
         return $this->belongsTo(Country::class);
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::observe(AddressObserver::class);
     }
 }
