@@ -116,12 +116,12 @@
                                     <div class="col-span-full">
                                         <label for="image" class="block text-sm/6 font-medium text-gray-900">Image <span
                                                 class="text-xs">PNG, JPG, GIF up to 10MB</span></label>
-                                        <div class="flex flex-col-1 items-center gap-x-4">
+                                        <div class="flex flex-col-1 items-center gap-x-4 mt-2">
                                             @if ($contact->image)
                                             <img src="{{ asset('storage/' . $contact->image) }}"
-                                                alt="{{ $contact->first_name }}" class="w-12 h-12 rounded-full">
+                                                alt="{{ $contact->first_name }}" class="w-24 h-24 rounded-full">
                                             @else
-                                            <div class="w-12 h-12 rounded-full flex items-center justify-center bg-gray-300 text-4xl font-bold text-white"
+                                            <div class="w-24 h-24 rounded-full flex items-center justify-center bg-gray-300 text-4xl font-bold text-white"
                                                 style="background-color: {{ $contact->color }};">
                                                 {{ strtoupper(substr($contact->first_name, 0, 1)) }}
                                             </div>
