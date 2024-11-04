@@ -62,4 +62,22 @@ class StoreContactRequest extends FormRequest
             'companies.*.job_names.*.title' => 'nullable|string|max:50',
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'birthday.day' => 'birthday day',
+            'birthday.month' => 'birthday month',
+            'birthday.year' => 'birthday year',
+            'phone_numbers.*.phone_number' => 'phone number',
+            'emails.*.email' => 'email',
+            'addresses.*.country_id' => 'country name',
+            'addresses.*.city' => 'city',
+            'addresses.*.street' => 'street',
+            'addresses.*.building_number' => 'building number',
+            'addresses.*.apartment_number' => 'apartment number',
+            'companies.*.name' => 'company name',
+            'companies.*.job_names.*.title' => 'job title',
+        ];
+    }
 }
