@@ -8,7 +8,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
-            <div class="container mx-auto p-6 bg-white rounded-lg shadow-md">
+            <div class="container mx-auto p-6  rounded-lg shadow-md" style="background: linear-gradient(45deg, {{ $contact->color }}, {{ $contact->color }}90);">
                 <!-- Contact Header -->
                 <div class="flex items-center justify-between pb-6">
                     <a href="{{ $backUrl }}"
@@ -54,15 +54,16 @@
                         <img src="{{ asset('storage/' . $contact->image) }}" alt="{{ $contact->first_name }}"
                             class="w-36 h-36 rounded-full">
                         @else
-                        <div class="w-36 h-36 rounded-full flex items-center justify-center bg-gray-300 text-4xl font-bold text-white"
-                            style="background-color: {{ $contact->color }};">
+                        <div class="w-36 h-36 rounded-full border flex items-center justify-center text-8xl font-bold"
+                            style="background-color: {{ $contact->color }}; text-shadow: #FFFFFF 1px 0 6px;">
                             {{ strtoupper(substr($contact->first_name, 0, 1)) }}
                         </div>
                         @endif
 
                         <!-- Contact Name and Favorite Icon -->
                         <div>
-                            <h2 class="text-3xl font-bold text-gray-900">{{ $contact->first_name }} {{
+                            <h2 class="text-3xl font-bold text-gray-900 drop-shadow-2xl"
+                            style="text-shadow: #FFFFFF 1px 0 10px;">{{ $contact->first_name }} {{
                                 $contact->middle_name }} {{
                                 $contact->last_name }}</h2>
                             {{-- <p class="text-gray-600">{{$contact->nickname}}</p> --}}
