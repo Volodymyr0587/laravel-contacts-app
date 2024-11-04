@@ -77,8 +77,8 @@
                 <!-- Contact Details Section -->
                 <div class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
                     <!-- Basic Info -->
-                    <div class="bg-gray-50 p-4 rounded-lg">
-                        <h3 class="text-xl font-semibold text-gray-700">Contact Information</h3>
+                    <div class="bg-gray-50 p-4 rounded-lg text-gray-700">
+                        <h3 class="text-xl font-semibold ">Contact Information</h3>
                         <div class="mt-4">
                             <p><span class="font-semibold text-gray-600">Nickname:</span> {{ $contact->nickname ?? 'N/A'
                                 }}</p>
@@ -87,8 +87,8 @@
                         </div>
                     </div>
 
-                    <div class="bg-gray-50 p-4 rounded-lg">
-                        <h3 class="text-xl font-semibold text-gray-700">Birthday</h3>
+                    <div class="bg-gray-50 p-4 rounded-lg text-gray-700">
+                        <h3 class="text-xl font-semibold">Birthday</h3>
                         <div class="mt-4">
                             @php
                                 $birthdayInfo = App\Helpers\BirthdayHelper::formatBirthday($contact->birthday);
@@ -107,8 +107,8 @@
                     </div>
 
                     <!-- Emails -->
-                    <div class="bg-gray-50 p-4 rounded-lg">
-                        <h3 class="text-xl font-semibold text-gray-700">Emails</h3>
+                    <div class="bg-gray-50 p-4 rounded-lg text-gray-700">
+                        <h3 class="text-xl font-semibold">Emails</h3>
                         <ul class="mt-4 space-y-2">
                             @forelse ($contact->emails as $email)
                             <li class="flex items-center justify-between">
@@ -121,8 +121,8 @@
                     </div>
 
                     <!-- Phone Numbers -->
-                    <div class="bg-gray-50 p-4 rounded-lg">
-                        <h3 class="text-xl font-semibold text-gray-700">Phone Numbers</h3>
+                    <div class="bg-gray-50 p-4 rounded-lg text-gray-700">
+                        <h3 class="text-xl font-semibold">Phone Numbers</h3>
                         <ul class="mt-4 space-y-2">
                             @forelse ($contact->phoneNumbers as $phoneNumber)
                             <li class="flex items-center justify-between">
@@ -135,13 +135,23 @@
                     </div>
 
                     <!-- Addresses -->
-                    <div class="bg-gray-50 p-4 rounded-lg">
-                        <h3 class="text-xl font-semibold text-gray-700">Addresses</h3>
+                    <div class="bg-gray-50 p-4 rounded-lg text-gray-700">
+                        <h3 class="text-xl font-semibold">Addresses</h3>
                         <ul class="mt-4 space-y-2">
                             @forelse ($contact->addresses as $address)
-                            <li class="text-gray-600">
-                                {{ $address->street }}, {{ $address->city }}, {{ $address->state }}, {{
-                                $address->postal_code }}
+                            <li class=" my-2">
+                                <div class="flex items-center gap-4">
+                                    <x-icon class="h-8 w-8" name="flag-country-{{ Str::lower($address->country->code) }}" />
+                                    <span class="text-gray-800">{{ $address->country->name }}</span>
+                                </div>
+
+                                <div class="space-y-1 text-sm mb-2">
+                                    <p><span class="font-semibold">City:</span> {{ $address->city ?? 'N/A' }}</p>
+                                    <p><span class="font-semibold">Street:</span> {{ $address->street ?? 'N/A' }}</p>
+                                    <p><span class="font-semibold">Building number:</span> {{ $address->building_number }}</p>
+                                    <p><span class="font-semibold">Apartment number:</span> {{ $address->apartment_number }}</p>
+                                    <p><span class="font-semibold">Type:</span> {{ $address->label }}</p>
+                                </div>
                             </li>
                             @empty
                             <li class="text-gray-400">No addresses available.</li>
