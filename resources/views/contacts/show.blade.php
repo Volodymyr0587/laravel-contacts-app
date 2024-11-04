@@ -54,9 +54,12 @@
                         <img src="{{ asset('storage/' . $contact->image) }}" alt="{{ $contact->first_name }}"
                             class="w-36 h-36 rounded-full">
                         @else
+                        @php
+                            $firstLetter = mb_strtoupper(mb_substr($contact->first_name, 0, 1));
+                        @endphp
                         <div class="w-36 h-36 rounded-full border flex items-center justify-center text-8xl font-bold"
                             style="background-color: {{ $contact->color }}; text-shadow: #FFFFFF 1px 0 6px;">
-                            {{ strtoupper(substr($contact->first_name, 0, 1)) }}
+                            {{ $firstLetter }}
                         </div>
                         @endif
 

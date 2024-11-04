@@ -12,7 +12,10 @@
 
                     <ul role="list" class="divide-y divide-gray-100">
                         @forelse ($contacts as $contact)
-                        <li class="flex justify-between items-center gap-x-6 py-5 px-5 rounded-md hover:bg-gray-100">
+                        <li class="flex justify-between items-center gap-x-6 py-5 px-5 rounded-md"
+                        style="transition: background-color 0.3s ease;"
+                        onmouseover="this.style.backgroundColor='{{ $contact->color }}30'"
+                        onmouseout="this.style.backgroundColor=''">
                             <div class="flex min-w-0 gap-x-4">
                                 @if ($contact->image)
                                     <img class="h-12 w-12 flex-none rounded-full bg-gray-50"
@@ -20,11 +23,11 @@
                                     alt="{{ $contact->first_name }}">
                                 @else
                                     @php
-                                        $firstLetter = strtoupper(substr($contact->first_name, 0, 1));
+                                        $firstLetter = mb_strtoupper(mb_substr($contact->first_name, 0, 1));
                                     @endphp
                                     <!-- Display initials with background color based on first letter -->
-                                    <div class="h-12 w-12 flex-none rounded-full flex items-center justify-center text-white font-bold text-xl"
-                                        style="background-color: {{ $contact->color }};">
+                                    <div class="h-12 w-12 flex-none rounded-full border flex items-center justify-center font-bold text-3xl"
+                                        style="background-color: {{ $contact->color }}; text-shadow: #FFFFFF 1px 0 6px;">
                                         {{ $firstLetter }}
                                     </div>
                                 @endif
