@@ -99,6 +99,9 @@
                     </ul>
 
                 </div>
+                <div class="mx-10 my-4">
+                    {{ $contacts->links() }}
+                </div>
             </div>
         </div>
     </div>

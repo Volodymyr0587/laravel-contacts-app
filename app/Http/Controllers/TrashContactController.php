@@ -9,7 +9,7 @@ class TrashContactController extends Controller
 {
     public function trash()
     {
-        $contacts = auth()->user()->contacts()->onlyTrashed()->paginate(10);
+        $contacts = auth()->user()->contacts()->onlyTrashed()->paginate(5);
         return view('contacts.trash', compact('contacts'));
     }
 
