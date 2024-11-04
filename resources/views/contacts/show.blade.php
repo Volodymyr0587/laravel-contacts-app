@@ -83,6 +83,25 @@
                         </div>
                     </div>
 
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h3 class="text-xl font-semibold text-gray-700">Birthday</h3>
+                        <div class="mt-4">
+                            @php
+                                $birthdayInfo = App\Helpers\BirthdayHelper::formatBirthday($contact->birthday);
+                            @endphp
+                            <p>
+                                <span class="font-semibold text-gray-600">Day:</span> {{ $birthdayInfo['day'] }}
+                                <span class="font-semibold text-gray-600">Month:</span> {{ $birthdayInfo['month'] }}
+                                <span class="font-semibold text-gray-600">Year:</span> {{ $birthdayInfo['year'] }}
+                            </p>
+                            @if ($birthdayInfo['day_name'])
+                                <p>
+                                    {{ $birthdayInfo['day_name'] }} this year {{ date('Y') }}
+                                </p>
+                            @endif
+                        </div>
+                    </div>
+
                     <!-- Emails -->
                     <div class="bg-gray-50 p-4 rounded-lg">
                         <h3 class="text-xl font-semibold text-gray-700">Emails</h3>
