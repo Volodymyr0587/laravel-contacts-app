@@ -239,7 +239,7 @@ class ContactController extends Controller
             }
 
            // Companies and jobs
-            $validatedCompanies = array_filter($validated['companies'], fn($companyData) => !empty($companyData['name']));
+            $validatedCompanies = array_filter($validated['companies'] ?? [], fn($companyData) => !empty($companyData['name']));
 
             // Delete companies with empty names from the database
             $contact->companies()->whereNotIn('id', collect($validatedCompanies)->pluck('id')->filter())->delete();
