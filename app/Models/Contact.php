@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use App\Models\JobName;
 use App\Models\Birthday;
 use Illuminate\Database\Eloquent\Model;
@@ -96,6 +97,33 @@ class Contact extends Model
         return $query->where('favorites', true);
     }
 
+
+    public function upcomingBirthdayInfo(): ?array
+    {
+        if (!$this->birthday || !$this->birthday->day || !$this->birthday->month) {
+            return null;
+        }
+
+        $today = Carbon::today();
+        $thisYearBirthday = Carbon::create($today->year, $this->birthday->month, $this->birthday->day);
+
+        // Check if the birthday this year has passed; if so, set it to next year
+        if ($thisYearBirthday->isBefore($today)) {
+            $thisYearBirthday->addYear();
+        }
+
+        $daysUntilBirthday = $today->diffInDays($thisYearBirthday);
+
+        // Only show if the birthday is within a week
+        if ($daysUntilBirthday <= 7) {
+            return [
+                'date' => $thisYearBirthday->toFormattedDateString(),
+                'days_left' => $daysUntilBirthday
+            ];
+        }
+
+        return null;
+    }
 
     protected static function boot()
     {

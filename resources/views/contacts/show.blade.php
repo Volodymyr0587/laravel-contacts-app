@@ -88,7 +88,12 @@
                     </div>
 
                     <div class="bg-gray-50 p-4 rounded-lg text-gray-700">
-                        <h3 class="text-xl font-semibold">Birthday</h3>
+                        @php
+                            $upcomingBirthdayInfo = $contact->upcomingBirthdayInfo();
+                        @endphp
+                        <h3 class="text-xl font-semibold">
+                            Birthday @if ($contact->upcomingBirthdayInfo()) ({{ $upcomingBirthdayInfo['days_left'] }} days left) @endif
+                        </h3>
                         <div class="mt-4">
                             @php
                                 $birthdayInfo = App\Helpers\BirthdayHelper::formatBirthday($contact->birthday);

@@ -17,6 +17,10 @@
                         onmouseover="this.style.backgroundColor='{{ $contact->color }}30'"
                         onmouseout="this.style.backgroundColor=''">
                             <div class="flex min-w-0 gap-x-4">
+                                @php
+                                    $upcomingBirthdayInfo = $contact->upcomingBirthdayInfo();
+                                @endphp
+                                <x-birthday-tooltip :upcomingBirthdayInfo="$upcomingBirthdayInfo" />
                                 @if ($contact->image)
                                     <img class="h-12 w-12 flex-none rounded-full bg-gray-50"
                                     src="{{ asset('storage/' . $contact->image) }}"
