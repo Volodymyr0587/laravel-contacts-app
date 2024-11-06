@@ -136,7 +136,10 @@
                                 @endphp
                                 <div class="flex items-center gap-4">
                                     <x-icon class="h-8 w-12" name="flag-country-{{ $country ? Str::lower($country->code) : null }}" />
-                                    <span class="text-gray-800">{{ $phoneNumber->dial_code }} {{ $phoneNumber->phone_number }}</span>
+                                    <div class="flex flex-col">
+                                        <span class="text-gray-800">{{ $phoneNumber->dial_code }} {{ $phoneNumber->phone_number }}</span>
+                                        <span class="font-semibold text-gary-800 text-sm">{{ $phoneNumber->label }}</span>
+                                    </div>
                                 </div>
                             </li>
                             @empty
