@@ -130,8 +130,14 @@
                         <h3 class="text-xl font-semibold">Phone Numbers</h3>
                         <ul class="mt-4 space-y-2">
                             @forelse ($contact->phoneNumbers as $phoneNumber)
-                            <li class="flex items-center justify-between">
-                                <span class="text-gray-600">{{ $phoneNumber->dial_code }} {{ $phoneNumber->phone_number }}</span>
+                            <li class="my-2">
+                                @php
+                                    $country = App\Models\Country::where('dial_code', $phoneNumber->dial_code)->first();
+                                @endphp
+                                <div class="flex items-center gap-4">
+                                    <x-icon class="h-8 w-12" name="flag-country-{{ $country ? Str::lower($country->code) : null }}" />
+                                    <span class="text-gray-800">{{ $phoneNumber->dial_code }} {{ $phoneNumber->phone_number }}</span>
+                                </div>
                             </li>
                             @empty
                             <li class="text-gray-400">No phone numbers available.</li>
@@ -144,9 +150,9 @@
                         <h3 class="text-xl font-semibold">Addresses</h3>
                         <ul class="mt-4 space-y-2">
                             @forelse ($contact->addresses as $address)
-                            <li class=" my-2">
-                                <div class="flex items-center gap-4">
-                                    <x-icon class="h-8 w-8" name="flag-country-{{ Str::lower($address->country->code) }}" />
+                            <li class="my-2">
+                                <div class="flex items-center gap-4 mb-2">
+                                    <x-icon class="h-8 w-12" name="flag-country-{{ Str::lower($address->country->code) }}" />
                                     <span class="text-gray-800">{{ $address->country->name }}</span>
                                 </div>
 
