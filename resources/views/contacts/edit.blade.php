@@ -395,7 +395,6 @@
                                                     class="block text-sm/6 font-medium text-gray-900">Label</label>
                                                 <div class="mt-2">
                                                     <select name="addresses[{{ $index }}][label]"
-                                                        value="{{ old('addresses.' . $index . '.label', $address->label) }}"
                                                         class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm/6">
                                                         <option value="">Select a type</option>
                                                         @foreach ($labelTypes as $labelType)
