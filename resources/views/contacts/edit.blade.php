@@ -398,9 +398,8 @@
                                                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm/6">
                                                         <option value="">Select a type</option>
                                                         @foreach ($labelTypes as $labelType)
-                                                            <option value="{{ $labelType->value }}"
-                                                                @selected(old("addresses.{$index}.label", $address->label) == $labelType->value)>
-                                                                {{ ucfirst($labelType->value) }}
+                                                            <option value="{{ $labelType->value }}" @selected($address->label->value == $labelType->value)>
+                                                                {{ $labelType->value}}
                                                             </option>
                                                         @endforeach
                                                     </select>
