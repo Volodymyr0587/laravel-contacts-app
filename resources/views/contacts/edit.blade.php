@@ -395,13 +395,13 @@
                                                     class="block text-sm/6 font-medium text-gray-900">Label</label>
                                                 <div class="mt-2">
                                                     <select name="addresses[{{ $index }}][label]"
-                                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm/6">
+                                                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm/6">
                                                         <option value="">Select a type</option>
                                                         @foreach ($labelTypes as $labelType)
-                                                        <option value="{{ $labelType->value }}" {{ old('addresses.' .
-                                                            $index . '.label' )==$labelType->value ? 'selected' : '' }}>
-                                                            {{ ucfirst($labelType->value) }}
-                                                        </option>
+                                                            <option value="{{ $labelType->value }}"
+                                                                @selected(old("addresses.{$index}.label", $address->label) == $labelType->value)>
+                                                                {{ ucfirst($labelType->value) }}
+                                                            </option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -415,45 +415,45 @@
                                         <div class="mt-4 grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-6"
                                             id="company-section">
                                             @foreach ($contact->companies as $index => $company)
-                                                <!-- Company Name Input -->
-                                                <div class="sm:col-span-2">
-                                                    <label for="companies[{{ $index }}][name]"
-                                                        class="block text-sm/6 font-medium text-gray-900">Company
-                                                        name</label>
-                                                    <div class="mt-2">
-                                                        <div
-                                                            class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                                                            <input type="text" name="companies[{{ $index }}][name]"
-                                                                value="{{ old('companies.' . $index . '.name', $company->name) }}"
-                                                                class="block flex-1 border-0 bg-transparent py-1.5 pl-4 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm/6"
-                                                                placeholder="FedEx">
-                                                        </div>
-                                                        @error("companies.{{ $index }}.name")
-                                                        <p class="text-red-500">{{ $message }}</p>
-                                                        @enderror
+                                            <!-- Company Name Input -->
+                                            <div class="sm:col-span-2">
+                                                <label for="companies[{{ $index }}][name]"
+                                                    class="block text-sm/6 font-medium text-gray-900">Company
+                                                    name</label>
+                                                <div class="mt-2">
+                                                    <div
+                                                        class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                                                        <input type="text" name="companies[{{ $index }}][name]"
+                                                            value="{{ old('companies.' . $index . '.name', $company->name) }}"
+                                                            class="block flex-1 border-0 bg-transparent py-1.5 pl-4 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm/6"
+                                                            placeholder="FedEx">
                                                     </div>
+                                                    @error("companies.{{ $index }}.name")
+                                                    <p class="text-red-500">{{ $message }}</p>
+                                                    @enderror
                                                 </div>
+                                            </div>
 
-                                                <!-- Job Names for the Company -->
-                                                @foreach ($company->jobNames as $jobIndex => $jobName)
-                                                <div class="sm:col-span-4">
-                                                    <label for="companies[{{ $index }}][job_names][{{ $jobIndex }}][title]"
-                                                        class="block text-sm/6 font-medium text-gray-900">Job title</label>
-                                                    <div class="mt-2">
-                                                        <div
-                                                            class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                                                            <input type="text"
-                                                                name="companies[{{ $index }}][job_names][{{ $jobIndex }}][title]"
-                                                                value="{{ old('companies.' . $index . '.job_names.' . $jobIndex . '.title', $jobName->title) }}"
-                                                                class="block flex-1 border-0 bg-transparent py-1.5 pl-4 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm/6"
-                                                                placeholder="Marketer">
-                                                        </div>
-                                                        @error("companies.{{ $index }}.job_names.{{ $jobIndex }}.title")
-                                                        <p class="text-red-500">{{ $message }}</p>
-                                                        @enderror
+                                            <!-- Job Names for the Company -->
+                                            @foreach ($company->jobNames as $jobIndex => $jobName)
+                                            <div class="sm:col-span-4">
+                                                <label for="companies[{{ $index }}][job_names][{{ $jobIndex }}][title]"
+                                                    class="block text-sm/6 font-medium text-gray-900">Job title</label>
+                                                <div class="mt-2">
+                                                    <div
+                                                        class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                                                        <input type="text"
+                                                            name="companies[{{ $index }}][job_names][{{ $jobIndex }}][title]"
+                                                            value="{{ old('companies.' . $index . '.job_names.' . $jobIndex . '.title', $jobName->title) }}"
+                                                            class="block flex-1 border-0 bg-transparent py-1.5 pl-4 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm/6"
+                                                            placeholder="Marketer">
                                                     </div>
+                                                    @error("companies.{{ $index }}.job_names.{{ $jobIndex }}.title")
+                                                    <p class="text-red-500">{{ $message }}</p>
+                                                    @enderror
                                                 </div>
-                                                @endforeach
+                                            </div>
+                                            @endforeach
                                             @endforeach
                                         </div>
                                         <button class="mt-2 text-blue-500 hover:underline" type="button"
