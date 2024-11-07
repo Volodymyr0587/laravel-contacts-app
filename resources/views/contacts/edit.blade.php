@@ -240,13 +240,22 @@
                                                 class="block text-sm font-medium text-gray-900">Label</label>
                                             <div class="flex items-center gap-x-2">
                                                 <div class="mt-2">
-                                                    <select name="phone_numbers[{{ $index }}][label]"
+                                                    {{-- <select name="phone_numbers[{{ $index }}][label]"
                                                         class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm">
                                                         <option value="">Select a type</option>
                                                         @foreach ($labelTypes as $labelType)
                                                         <option value="{{ $labelType->value }}" {{
                                                             old("phone_numbers.$index.label", $phoneNumber->label) ==
                                                             $labelType->value ? 'selected' : '' }}>
+                                                            {{ ucfirst($labelType->value) }}
+                                                        </option>
+                                                        @endforeach
+                                                    </select> --}}
+                                                    <select name="phone_numbers[{{ $index }}][label]"
+                                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm/6">
+                                                        <option value="">Select a type</option>
+                                                        @foreach ($labelTypes as $labelType)
+                                                        <option value="{{ $labelType->value }}" @selected($phoneNumber->label?->value == $labelType->value)>
                                                             {{ ucfirst($labelType->value) }}
                                                         </option>
                                                         @endforeach
@@ -285,16 +294,12 @@
                                                 <label for="emails[{{ $index }}][label]"
                                                     class="block text-sm/6 font-medium text-gray-900">Label</label>
                                                 <div class="mt-2">
-                                                    <select name="emails[{{ $index }}][label]" value="{{ old("
-                                                        emails.$index.label") }}"
+                                                    <select name="emails[{{ $index }}][label]"
                                                         class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm/6">
                                                         <option value="">Select a type</option>
                                                         @foreach ($labelTypes as $labelType)
-                                                        <option value="{{ $labelType->value }}" {{
-                                                            old("emails.$index.label")==$labelType->value ? 'selected' :
-                                                            ''
-                                                            }}>
-                                                            {{ ucfirst($labelType->value) }}
+                                                        <option value="{{ $labelType->value }}" @selected($email->label?->value == $labelType->value)>
+                                                            {{ $labelType->value }}
                                                         </option>
                                                         @endforeach
                                                     </select>
@@ -399,7 +404,7 @@
                                                         <option value="">Select a type</option>
                                                         @foreach ($labelTypes as $labelType)
                                                             <option value="{{ $labelType->value }}" @selected($address->label->value == $labelType->value)>
-                                                                {{ $labelType->value}}
+                                                                {{ $labelType->value }}
                                                             </option>
                                                         @endforeach
                                                     </select>

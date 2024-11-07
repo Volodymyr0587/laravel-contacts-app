@@ -116,8 +116,13 @@
                         <h3 class="text-xl font-semibold">Emails</h3>
                         <ul class="mt-4 space-y-2">
                             @forelse ($contact->emails as $email)
-                            <li class="flex items-center justify-between">
-                                <span class="text-gray-600">{{ $email->email }}</span>
+                            <li>
+                                <div class="flex items-center gap-4">
+                                    <div class="flex flex-col">
+                                        <span class="text-gray-800">{{ $email->email }}</span>
+                                        <span class="font-semibold text-gary-800 text-sm">{{ $email->label }}</span>
+                                    </div>
+                                </div>
                             </li>
                             @empty
                             <li class="text-gray-400">No emails available.</li>
