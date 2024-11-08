@@ -53,17 +53,20 @@
                             @endphp
                             <x-birthday-tooltip :upcomingBirthdayInfo="$upcomingBirthdayInfo" />
                             @if ($contact->image)
-                            <img class="h-12 w-12 flex-none rounded-full bg-gray-50 transition duration-300 ease-in-out hover:scale-150"
-                                src="{{ asset('storage/' . $contact->image) }}" alt="{{ $contact->first_name }}">
+                            <a href="{{ route('contacts.show', $contact) }}">
+                                <img class="h-12 w-12 flex-none rounded-full bg-gray-50 transition duration-300 ease-in-out hover:scale-150"
+                                    src="{{ asset('storage/' . $contact->image) }}" alt="{{ $contact->first_name }}">
+                            </a>
                             @else
                             @php
                             $firstLetter = mb_strtoupper(mb_substr($contact->first_name, 0, 1));
                             @endphp
                             <!-- Display initials with background color based on first letter -->
-                            <div class="h-12 w-12 flex-none rounded-full border flex items-center justify-center font-bold text-3xl"
+                            <a href="{{ route('contacts.show', $contact) }}"
+                                class="h-12 w-12 flex-none rounded-full border flex items-center justify-center font-bold text-3xl transition duration-300 ease-in-out hover:scale-150"
                                 style="background-color: {{ $contact->color }}; text-shadow: #FFFFFF 1px 0 6px;">
                                 {{ $firstLetter }}
-                            </div>
+                            </a>
                             @endif
                             <div class="min-w-0 flex-auto">
                                 <div
