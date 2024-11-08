@@ -201,7 +201,7 @@
                                 <h3 class="mt-8 text-base/7 font-semibold text-gray-900">Phone Numbers</h4>
                                     <div class="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6"
                                         id="phone-section">
-                                        @foreach ($contact->phoneNumbers as $index => $phoneNumber)
+                                        @forelse ($contact->phoneNumbers as $index => $phoneNumber)
                                         <div class="sm:col-span-1">
                                             <label for="phone_numbers[{{ $index }}][dial_code]"
                                                 class="block text-sm font-medium text-gray-900">Country code</label>
@@ -266,7 +266,51 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        @endforeach
+                                        @empty
+                                        <div class="sm:col-span-1">
+                                            <label for="phone_numbers[0][dial_code]" class="block text-sm/6 font-medium text-gray-900">Country code</label>
+                                            <div class="mt-2">
+                                                <select name="phone_numbers[0][dial_code]"
+                                                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm/6">
+                                                    @foreach ($dialCodes as $id => $dialCode)
+                                                    <option value="{{ $dialCode }}" {{ old('phone_numbers.0.dial_code')==$dialCode ? 'selected' : '' }}>
+                                                    {{ $dialCode }}
+                                                    </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="sm:col-span-2">
+                                            <label for="phone_numbers[0][phone_number]" class="block text-sm/6 font-medium text-gray-900">Phone number</label>
+                                            <div class="mt-2">
+                                                <input type="text" name="phone_numbers[0][phone_number]" value="{{ old('phone_numbers.0.phone_number') }}"
+                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
+                                                    @error('phone_numbers.0.phone_number')
+                                                    <p class="text-red-500">{{ $message }}</p>
+                                                    @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="sm:col-span-2">
+                                            <label for="phone_numbers[0][label]" class="block text-sm/6 font-medium text-gray-900">Label</label>
+                                            <div class="mt-2">
+                                                <select name="phone_numbers[0][label]"
+                                                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm/6">
+                                                <option value="">Select a type</option>
+                                                @foreach ($labelTypes as $labelType)
+                                                <option value="{{ $labelType->value }}" {{ old('phone_numbers.0.label')==$labelType->value ?
+                                                    'selected' : '' }}>
+                                                    {{ ucfirst($labelType->value) }}
+                                                </option>
+                                                @endforeach
+                                                </select>
+                                                @error('phone_numbers.0.label')
+                                                <p class="text-red-500">{{ $message }}</p>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        @endforelse
                                     </div>
 
                                     <button class="mt-2 text-blue-500 hover:underline" type="button"
@@ -275,7 +319,7 @@
                                     <h3 class="mt-8 text-base/7 font-semibold text-gray-900">Emails</h4>
                                         <div class="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6"
                                             id="email-section">
-                                            @foreach ($contact->emails as $index => $email)
+                                            @forelse ($contact->emails as $index => $email)
                                             <div class="sm:col-span-3">
                                                 <label for="emails[{{ $index }}][email]"
                                                     class="block text-sm/6 font-medium text-gray-900">Email</label>
@@ -305,7 +349,33 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            @endforeach
+                                            @empty
+                                            <div class="sm:col-span-3">
+                                                <label for="emails[0][email]" class="block text-sm/6 font-medium text-gray-900">Email</label>
+                                                <div class="mt-2">
+                                                    <input type="email" name="emails[0][email]" value="{{ old('emails.0.email') }}"
+                                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
+                                                </div>
+                                                @error('emails.0.email')
+                                                    <p class="text-red-500">{{ $message }}</p>
+                                                @enderror
+                                            </div>
+                                            <div class="sm:col-span-2">
+                                                <label for="emails[0][label]" class="block text-sm/6 font-medium text-gray-900">Label</label>
+                                                <div class="mt-2">
+                                                    <select name="emails[0][label]" value="{{ old('emails.0.label') }}"
+                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm/6">
+                                                        <option value="">Select a type</option>
+                                                        @foreach ($labelTypes as $labelType)
+                                                        <option value="{{ $labelType->value }}" {{ old('emails.0.label')==$labelType->value ? 'selected' : ''
+                                                            }}>
+                                                            {{ ucfirst($labelType->value) }}
+                                                        </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            @endforelse
                                         </div>
                                         <button class="mt-2 text-blue-500 hover:underline" type="button"
                                             onclick="addEmail()">Add another email</button>
@@ -313,7 +383,7 @@
                                         <h3 class="mt-8 text-base/7 font-semibold text-gray-900">Addresses</h3>
                                         <div class="mt-4 grid grid-cols-3 gap-x-6 gap-y-8 sm:grid-cols-6"
                                             id="address-section">
-                                            @foreach ($contact->addresses as $index => $address)
+                                            @forelse ($contact->addresses as $index => $address)
                                             <div class="sm:col-span-2">
                                                 <label for="addresses[{{ $index }}][country_id]"
                                                     class="block text-sm/6 font-medium text-gray-900">Country</label>
@@ -410,7 +480,89 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            @endforeach
+                                            @empty
+                                            <div class="sm:col-span-2">
+                                                <label for="addresses[0][country_id]"
+                                                    class="block text-sm/6 font-medium text-gray-900">Country</label>
+                                                <div class="mt-2">
+                                                    <select name="addresses[0][country_id]"
+                                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm/6">
+                                                        <option value="">Choose a country</option>
+                                                        @foreach ($countries as $country)
+                                                        <option value="{{ $country->id }}" {{ old('addresses.0.country_id')==$country->id ?
+                                                            'selected' : '' }}>
+                                                            {{ $country->name }}
+                                                        </option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('addresses.0.country_id')
+                                                    <p class="text-red-500">{{ $message }}</p>
+                                                    @enderror
+                                                </div>
+                                            </div>
+
+                                            <div class="sm:col-span-2">
+                                                <label for="addresses[0][city]" class="block text-sm/6 font-medium text-gray-900">City</label>
+                                                <div class="mt-2">
+                                                    <input type="text" name="addresses[0][city]" value="{{ old('addresses.0.city') }}"
+                                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
+                                                </div>
+                                                @error('addresses.0.city')
+                                                <p class="text-red-500">{{ $message }}</p>
+                                                @enderror
+                                            </div>
+
+                                            <div class="col-span-2">
+                                                <label for="addresses[0][street]"
+                                                    class="block text-sm/6 font-medium text-gray-900">Street name</label>
+                                                <div class="mt-2">
+                                                    <input type="text" name="addresses[0][street]" value="{{ old('addresses.0.street') }}"
+                                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
+                                                </div>
+                                                @error('addresses.0.street')
+                                                <p class="text-red-500">{{ $message }}</p>
+                                                @enderror
+                                            </div>
+
+                                            <div class="sm:col-span-2 sm:col-start-1">
+                                                <label for="addresses[0][building_number]" class="block text-sm/6 font-medium text-gray-900">Building Number</label>
+                                                <div class="mt-2">
+                                                    <input type="text" name="addresses[0][building_number]" value="{{ old('addresses.0.building_number') }}"
+                                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
+                                                </div>
+                                                @error('addresses.0.building_number')
+                                                <p class="text-red-500">{{ $message }}</p>
+                                                @enderror
+                                            </div>
+
+                                            <div class="sm:col-span-2">
+                                                <label for="addresses[0][apartment_number]" class="block text-sm/6 font-medium text-gray-900">
+                                                    Apartment Number</label>
+                                                <div class="mt-2">
+                                                    <input type="text" name="addresses[0][apartment_number]" value="{{ old('addresses.0.apartment_number') }}"
+                                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
+                                                </div>
+                                                @error('addresses.0.apartment_number')
+                                                <p class="text-red-500">{{ $message }}</p>
+                                                @enderror
+                                            </div>
+
+                                            <div class="sm:col-span-2">
+                                                <label for="addresses[0][label]" class="block text-sm/6 font-medium text-gray-900">Label</label>
+                                                <div class="mt-2">
+                                                    <select name="addresses[0][label]" value="{{ old('addresses.0.label') }}"
+                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm/6">
+                                                        <option value="">Select a type</option>
+                                                        @foreach ($labelTypes as $labelType)
+                                                        <option value="{{ $labelType->value }}" {{ old('addresses.0.label')==$labelType->value ? 'selected' :
+                                                            '' }}>
+                                                            {{ ucfirst($labelType->value) }}
+                                                        </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            @endforelse
                                         </div>
                                         <button class="mt-2 text-blue-500 hover:underline" type="button"
                                             onclick="addAddress()">Add another address</button>
@@ -418,7 +570,7 @@
                                         <h3 class="mt-8 text-base/7 font-semibold text-gray-900">Companies / Jobs</h3>
                                         <div class="mt-4 grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-6"
                                             id="company-section">
-                                            @foreach ($contact->companies as $index => $company)
+                                            @forelse ($contact->companies as $index => $company)
                                             <!-- Company Name Input -->
                                             <div class="sm:col-span-2">
                                                 <label for="companies[{{ $index }}][name]"
@@ -439,26 +591,58 @@
                                             </div>
 
                                             <!-- Job Names for the Company -->
-                                            @foreach ($company->jobNames as $jobIndex => $jobName)
-                                            <div class="sm:col-span-4">
-                                                <label for="companies[{{ $index }}][job_names][{{ $jobIndex }}][title]"
-                                                    class="block text-sm/6 font-medium text-gray-900">Job title</label>
+                                                @foreach ($company->jobNames as $jobIndex => $jobName)
+                                                <div class="sm:col-span-4">
+                                                    <label for="companies[{{ $index }}][job_names][{{ $jobIndex }}][title]"
+                                                        class="block text-sm/6 font-medium text-gray-900">Job title</label>
+                                                    <div class="mt-2">
+                                                        <div
+                                                            class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                                                            <input type="text"
+                                                                name="companies[{{ $index }}][job_names][{{ $jobIndex }}][title]"
+                                                                value="{{ old('companies.' . $index . '.job_names.' . $jobIndex . '.title', $jobName->title) }}"
+                                                                class="block flex-1 border-0 bg-transparent py-1.5 pl-4 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm/6"
+                                                                placeholder="Marketer">
+                                                        </div>
+                                                        @error("companies.{{ $index }}.job_names.{{ $jobIndex }}.title")
+                                                        <p class="text-red-500">{{ $message }}</p>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                @endforeach
+                                            @empty
+                                            <div class="sm:col-span-2">
+                                                <label for="companies[0][name]"
+                                                    class="block text-sm/6 font-medium text-gray-900">Company name</label>
                                                 <div class="mt-2">
                                                     <div
                                                         class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                                                        <input type="text"
-                                                            name="companies[{{ $index }}][job_names][{{ $jobIndex }}][title]"
-                                                            value="{{ old('companies.' . $index . '.job_names.' . $jobIndex . '.title', $jobName->title) }}"
+                                                        <input type="text" name="companies[0][name]" value="{{ old('companies.0.name') }}" autocomplete="companies[0][name]"
                                                             class="block flex-1 border-0 bg-transparent py-1.5 pl-4 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm/6"
-                                                            placeholder="Marketer">
+                                                            placeholder="FedEx">
                                                     </div>
-                                                    @error("companies.{{ $index }}.job_names.{{ $jobIndex }}.title")
+                                                    @error('companies.0.name')
                                                     <p class="text-red-500">{{ $message }}</p>
                                                     @enderror
                                                 </div>
                                             </div>
-                                            @endforeach
-                                            @endforeach
+                                            <div class="sm:col-span-4">
+                                                <label for="companies[0][job_names][0][title]"
+                                                    class="block text-sm/6 font-medium text-gray-900">Job title</label>
+                                                <div class="mt-2">
+                                                    <div
+                                                        class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                                                        <input  type="text" name="companies[0][job_names][0][title]"
+                                                        value="{{ old('companies.0.job_names.0.title') }}"
+                                                            class="block flex-1 border-0 bg-transparent py-1.5 pl-4 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm/6"
+                                                            placeholder="Marketer">
+                                                    </div>
+                                                    @error('companies.0.job_names.0.title')
+                                                    <p class="text-red-500">{{ $message }}</p>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            @endforelse
                                         </div>
                                         <button class="mt-2 text-blue-500 hover:underline" type="button"
                                             onclick="addCompany()">Add another company</button>
