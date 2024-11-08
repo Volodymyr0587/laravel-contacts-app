@@ -37,11 +37,11 @@
                                     src="{{ asset('storage/' . $contact->image) }}" alt="{{ $contact->first_name }}">
                                 @else
                                 @php
-                                $firstLetter = strtoupper(substr($contact->first_name, 0, 1));
+                                    $firstLetter = mb_strtoupper(mb_substr($contact->first_name, 0, 1));
                                 @endphp
                                 <!-- Display initials with background color based on first letter -->
-                                <div class="h-12 w-12 flex-none rounded-full flex items-center justify-center text-white font-bold text-xl"
-                                    style="background-color: {{ $contact->color }};">
+                                <div class="h-12 w-12 flex-none rounded-full border flex items-center justify-center font-bold text-3xl"
+                                    style="background-color: {{ $contact->color }}; text-shadow: #FFFFFF 1px 0 6px;">
                                     {{ $firstLetter }}
                                 </div>
                                 @endif
