@@ -5,7 +5,7 @@
                 {{ __('Contacts') }}
             </h2>
             <a href="{{ route('export-contacts-to-csv') }}" class="px-5 py-2 bg-blue-600 text-white font-bold rounded-full hover:bg-blue-700">
-                Download Contacts CSV
+                Download Contacts to CSV file
             </a>
         </div>
     </x-slot>
