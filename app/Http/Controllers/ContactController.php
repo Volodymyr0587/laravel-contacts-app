@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Contact;
 use App\Models\Country;
 use App\Enums\LabelType;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\StoreContactRequest;
 
@@ -13,12 +14,20 @@ class ContactController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $contacts = auth()->user()->contacts()
-            ->with(['emails', 'phoneNumbers', 'jobNames'])
-            ->orderByDesc('favorites')
-            ->paginate(5);
+        // Get the search query from the request
+        $searchTerm = $request->query('search');
+
+        $query = auth()->user()->contacts()
+            ->with(['emails', 'phoneNumbers', 'jobNames']);
+
+        // Use scope from model
+        $query->searchContactByName($searchTerm);
+
+        $contacts = $query->orderByDesc('favorites')
+                        ->paginate(5)
+                        ->withQueryString();
 
         return view('contacts.index', compact('contacts'));
     }

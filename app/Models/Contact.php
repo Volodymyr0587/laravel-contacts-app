@@ -5,6 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use App\Models\JobName;
 use App\Models\Birthday;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -123,6 +124,32 @@ class Contact extends Model
         }
 
         return null;
+    }
+
+    public function scopeSearchContactByName(Builder $query, $searchTerm)
+    {
+        if ($searchTerm) {
+            return $query->where(function ($q) use ($searchTerm) {
+                $q->whereAny(
+                    [
+                        'first_name',
+                        'middle_name',
+                        'last_name',
+                        'nickname',
+                    ],
+                    'LIKE',
+                    '%' . $searchTerm . '%'
+                )
+                ->orWhereHas('phoneNumbers', function ($q) use ($searchTerm) {
+                    $q->where('phone_number', 'LIKE', '%' . $searchTerm . '%');
+                })
+                ->orWhereHas('emails', function ($q) use ($searchTerm) {
+                    $q->where('email', 'LIKE', '%' . $searchTerm . '%');
+                });
+            });
+        }
+
+        return $query;
     }
 
     protected static function boot()
