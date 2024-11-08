@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ExportContactsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TrashContactController;
 use Illuminate\Support\Facades\Route;
@@ -19,8 +20,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::resource('contacts', ContactController::class);
+    Route::get('/export-contacts-to-csv', ExportContactsController::class)->name('export-contacts-to-csv');
     Route::put('/contacts/{contact}/toggle-favorite', [ContactController::class, 'toggleFavorite'])
         ->name('contacts.toggleFavorite');
+
+
 
     Route::controller(TrashContactController::class)->group(function () {
         Route::prefix('trash')->group(function () {
@@ -33,7 +37,6 @@ Route::middleware('auth')->group(function () {
             });
         });
     });
-
 });
 
 require __DIR__.'/auth.php';
