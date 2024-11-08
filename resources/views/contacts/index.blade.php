@@ -53,7 +53,7 @@
                             @endphp
                             <x-birthday-tooltip :upcomingBirthdayInfo="$upcomingBirthdayInfo" />
                             @if ($contact->image)
-                            <img class="h-12 w-12 flex-none rounded-full bg-gray-50"
+                            <img class="h-12 w-12 flex-none rounded-full bg-gray-50 transition duration-300 ease-in-out hover:scale-150"
                                 src="{{ asset('storage/' . $contact->image) }}" alt="{{ $contact->first_name }}">
                             @else
                             @php
