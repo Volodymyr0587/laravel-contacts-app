@@ -98,6 +98,12 @@ class Contact extends Model
         return $query->where('favorites', true);
     }
 
+    public function scopeSortByName(Builder $query, $direction = 'asc')
+    {
+        return $query->orderBy('first_name', $direction)
+                    ->orderBy('last_name', $direction);
+    }
+
 
     public function upcomingBirthdayInfo(): ?array
     {

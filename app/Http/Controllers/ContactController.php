@@ -18,12 +18,14 @@ class ContactController extends Controller
     {
         // Get the search query from the request
         $searchTerm = $request->query('search');
+        $sortDirection = $request->query('sortByName', 'asc'); // Default to ascending
 
         $query = auth()->user()->contacts()
             ->with(['emails', 'phoneNumbers', 'jobNames']);
 
         // Use scope from model
-        $query->searchContactByName($searchTerm);
+        $query->searchContactByName($searchTerm)
+                ->sortByName($sortDirection);
 
         $contacts = $query->orderByDesc('favorites')
                         ->paginate(5)

@@ -9,7 +9,7 @@
                 @endif
             </h2>
             <a href="{{ route('export-contacts-to-csv') }}"
-                class="px-5 py-2 bg-blue-600 text-white font-bold rounded-full hover:bg-blue-700">
+                class="px-5 py-2 bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-full">
                 Download Contacts to CSV file
             </a>
         </div>
@@ -18,11 +18,11 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                {{-- Search Form--}}
-                <div class="mt-4 ml-4 w-full md:w-72">
-                    <form action="{{ route('contacts.index') }}">
+                <div class="flex items-center justify-between mt-4 mx-4 w-full">
+                    {{-- Search Form--}}
+                    <form action="{{ route('contacts.index') }}" class="w-full max-w-xs">
                         @csrf
-                        <div class="relative h-10 w-full min-w-[200px]">
+                        <div class="relative h-10 w-full">
                             <button type="submit"
                                 class="absolute grid w-5 h-5 top-2/4 right-3 -translate-y-2/4 place-items-center text-blue-gray-500">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -37,8 +37,19 @@
                                 placeholder="Search by name, phone, email" />
                         </div>
                     </form>
+                    {{-- End Search Form --}}
+
+                    {{-- Sort by name --}}
+                    <div class="flex space-x-2 mr-8">
+                        <a href="{{ route('contacts.index', ['sortByName' => 'asc']) }}" class="btn btn-primary text-sm font-semibold text-white bg-blue-500 hover:bg-blue-600 px-3 py-1 rounded-md">
+                            Sort A-Z
+                        </a>
+                        <a href="{{ route('contacts.index', ['sortByName' => 'desc']) }}" class="btn btn-secondary text-sm font-semibold text-white bg-gray-500 hover:bg-gray-600 px-3 py-1 rounded-md">
+                            Sort Z-A
+                        </a>
+                    </div>
+                    {{-- End Sort by name --}}
                 </div>
-                {{-- End Search Form --}}
 
             <div class="p-6 text-gray-900">
                 <ul role="list" class="divide-y divide-gray-100">
