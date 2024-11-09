@@ -14,7 +14,7 @@
                         <!-- Favorite Button -->
                         <form action="{{ route('contacts.restore-all') }}" method="POST">
                             @csrf
-                            <button type="submit" class="px-5 py-2 bg-green-600 text-white font-bold rounded-full hover:bg-green-700">
+                            <button type="submit" class="px-3 py-1 bg-green-600 text-white font-bold rounded-md hover:bg-green-700">
                                 Restore all
                             </button>
                         </form>
@@ -22,7 +22,7 @@
                             onsubmit="return confirm('Are you sure you want to empty trash? This action is irreversible!');">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="px-5 py-2 bg-red-600 text-white font-bold rounded-full hover:bg-red-700">
+                            <button type="submit" class="px-3 py-1 bg-red-600 text-white font-bold rounded-md hover:bg-red-700">
                                 Empty Trash
                             </button>
                         </form>

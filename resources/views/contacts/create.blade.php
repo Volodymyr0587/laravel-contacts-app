@@ -381,9 +381,9 @@
                         </div>
 
                         <div class="mt-6 flex items-center justify-end gap-x-6">
-                            <button type="button" class="text-sm/6 font-semibold text-gray-900">Cancel</button>
+                            <button type="button" class="text-sm/6 font-semibold text-white bg-gray-500 hover:bg-gray-600 px-3 py-1 rounded-md">Cancel</button>
                             <button type="submit"
-                                class="px-5 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700">Save</button>
+                                class="px-3 py-1 rounded-md bg-blue-500 text-white hover:bg-blue-600">Save</button>
                         </div>
                     </form>
 

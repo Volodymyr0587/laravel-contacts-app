@@ -9,7 +9,7 @@
                 @endif
             </h2>
             <a href="{{ route('export-contacts-to-csv') }}"
-                class="px-5 py-2 bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-full">
+                class="px-3 py-1 rounded-md bg-blue-500 hover:bg-blue-600 text-white font-bold">
                 Download Contacts to CSV file
             </a>
         </div>
@@ -41,10 +41,10 @@
 
                     {{-- Sort by name --}}
                     <div class="flex space-x-2 mr-8">
-                        <a href="{{ route('contacts.index', ['sortByName' => 'asc']) }}" class="btn btn-primary text-sm font-semibold text-white bg-blue-500 hover:bg-blue-600 px-3 py-1 rounded-md">
+                        <a href="{{ route('contacts.index', ['sortByName' => 'asc']) }}" class="text-sm font-semibold text-white bg-blue-500 hover:bg-blue-600 px-3 py-1 rounded-md">
                             Sort A-Z
                         </a>
-                        <a href="{{ route('contacts.index', ['sortByName' => 'desc']) }}" class="btn btn-secondary text-sm font-semibold text-white bg-gray-500 hover:bg-gray-600 px-3 py-1 rounded-md">
+                        <a href="{{ route('contacts.index', ['sortByName' => 'desc']) }}" class="text-sm font-semibold text-white bg-gray-500 hover:bg-gray-600 px-3 py-1 rounded-md">
                             Sort Z-A
                         </a>
                     </div>

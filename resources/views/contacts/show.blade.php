@@ -33,7 +33,7 @@
                         </form>
 
                         <a href="{{ route('contacts.edit', $contact) }}"
-                            class="px-5 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700">
+                            class="flex items-center px-3 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600">
                             Edit
                         </a>
                         <form action="{{ route('contacts.destroy', $contact) }}" method="POST"
