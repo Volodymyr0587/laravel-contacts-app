@@ -40,11 +40,21 @@
                     {{-- End Search Form --}}
 
                     {{-- Sort by name --}}
+                    @php
+                        $currentSort = request('sortByName');
+                    @endphp
+
                     <div class="flex space-x-2 mr-8">
-                        <a href="{{ route('contacts.index', ['sortByName' => 'asc']) }}" class="text-sm font-semibold text-white bg-blue-500 hover:bg-blue-600 px-3 py-1 rounded-md">
+                        <a href="{{ $currentSort !== 'asc' ? route('contacts.index', ['sortByName' => 'asc']) : '#' }}"
+                           class="text-sm font-semibold px-3 py-1 rounded-md
+                               {{ $currentSort === 'asc' ? 'text-white bg-blue-500 cursor-not-allowed opacity-50' : 'text-white bg-blue-500 hover:bg-blue-600' }}"
+                           {{ $currentSort === 'asc' ? 'aria-disabled=true' : '' }}>
                             Sort A-Z
                         </a>
-                        <a href="{{ route('contacts.index', ['sortByName' => 'desc']) }}" class="text-sm font-semibold text-white bg-gray-500 hover:bg-gray-600 px-3 py-1 rounded-md">
+                        <a href="{{ $currentSort !== 'desc' ? route('contacts.index', ['sortByName' => 'desc']) : '#' }}"
+                           class="text-sm font-semibold px-3 py-1 rounded-md
+                               {{ $currentSort === 'desc' ? 'text-white bg-blue-500 cursor-not-allowed opacity-50' : 'text-white bg-blue-500 hover:bg-blue-600' }}"
+                           {{ $currentSort === 'desc' ? 'aria-disabled=true' : '' }}>
                             Sort Z-A
                         </a>
                     </div>
