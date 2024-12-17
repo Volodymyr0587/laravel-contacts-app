@@ -24,12 +24,15 @@ class ContactController extends Controller
             ->with(['emails', 'phoneNumbers', 'jobNames']);
 
         // Use scope from model
-        $query->searchContactByName($searchTerm)
-                ->sortByName($sortDirection);
+        $query->searchContactByName($searchTerm);
 
-        $contacts = $query->orderByDesc('favorites')
-                        ->paginate(5)
+        // Always place favorites first, then sort by name
+        $query->orderByDesc('favorites')
+            ->sortByName($sortDirection);
+
+        $contacts = $query->paginate(5)
                         ->withQueryString();
+
 
         return view('contacts.index', compact('contacts'));
     }
