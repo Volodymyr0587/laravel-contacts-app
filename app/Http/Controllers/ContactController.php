@@ -33,7 +33,6 @@ class ContactController extends Controller
         $contacts = $query->paginate(5)
                         ->withQueryString();
 
-
         return view('contacts.index', compact('contacts'));
     }
 
